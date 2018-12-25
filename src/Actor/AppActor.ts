@@ -3,15 +3,13 @@ import { VueActor } from "../Models/VueActor";
 export default class AppActor extends VueActor {
     constructor() {
       super("#app")
-      setInterval(() => {
-        ++this.counter;
-        this.message = "counter: " + this.counter
-      } , 1000)
+      this.schedule(1000, this.incrementCounter, [])
     }
   
+    private incrementCounter(): void {
+      this.counter++;
+    }
+
     private counter = 0; 
-  
-    readonly template : string = "<div>{{message}}</div>"
-    public message : string = ""
-  
+    readonly template : string = "<div>counter: {{counter}}</div>"
   }

@@ -16,7 +16,7 @@
   "devDependencies": {
     "@types/faker": "4.1.4",
     "@types/jest": "23.3.10",
-    "@wind-js/actor": "2.1.6",
+    "@wind-js/actor": "2.1.7",
     "faker": "4.1.0",
     "jest": "23.6.0",
     "prettier": "1.15.3",

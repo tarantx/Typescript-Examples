@@ -71,10 +71,10 @@
     postcss-modules-sync "^1.0.0"
     source-map "0.6.*"
 
-"@wind-js/actor@2.1.6":
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/@wind-js/actor/-/actor-2.1.6.tgz#fed7b6030159c9bbf942cf7f044c1685c4ddfafa"
-  integrity sha512-X9xPw6hQXTrcFoDEQzicg6Xq5oIIpT0coyunTiHAbuYyZnA/janE0LRxgaG4kDnjGDYNKL+TkevfDMc2DdTL/g==
+"@wind-js/actor@2.1.7":
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/@wind-js/actor/-/actor-2.1.7.tgz#abb89b77e380c7ff250a7d6d1a0fe1b934d98247"
+  integrity sha512-2UXrqzu0gupre4RQEETr/SdTABcpYI/BJa7//Rpjmr/ccE44Yw1SJajusYA5TGJiOJX1lmrFdkqsG0ugfpnaPg==
 
 abab@^2.0.0:
   version "2.0.0"
