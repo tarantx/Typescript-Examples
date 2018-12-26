@@ -1,5 +1,7 @@
 'use strict';
 
+var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
 function unwrapExports (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x.default : x;
 }
@@ -233,7 +235,7 @@ unwrapExports(uuid);
 
 var actor = createCommonjsModule(function (module, exports) {
 /**
- * Copyright (c) 2018-present, wind-js
+ * Copyright (c) 2018-present, tarant
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -351,7 +353,7 @@ unwrapExports(actor);
 
 var fiber = createCommonjsModule(function (module, exports) {
 /**
- * Copyright (c) 2018-present, wind-js
+ * Copyright (c) 2018-present, tarant
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -391,7 +393,7 @@ unwrapExports(fiber);
 
 var message = createCommonjsModule(function (module, exports) {
 /**
- * Copyright (c) 2018-present, wind-js
+ * Copyright (c) 2018-present, tarant
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -417,7 +419,7 @@ unwrapExports(message);
 
 var actorMessage = createCommonjsModule(function (module, exports) {
 /**
- * Copyright (c) 2018-present, wind-js
+ * Copyright (c) 2018-present, tarant
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -442,7 +444,7 @@ unwrapExports(actorMessage);
 
 var actorProxy = createCommonjsModule(function (module, exports) {
 /**
- * Copyright (c) 2018-present, wind-js
+ * Copyright (c) 2018-present, tarant
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -488,7 +490,7 @@ unwrapExports(actorProxy);
 
 var subscription = createCommonjsModule(function (module, exports) {
 /**
- * Copyright (c) 2018-present, wind-js
+ * Copyright (c) 2018-present, tarant
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -529,7 +531,7 @@ unwrapExports(subscription);
 
 var mailbox = createCommonjsModule(function (module, exports) {
 /**
- * Copyright (c) 2018-present, wind-js
+ * Copyright (c) 2018-present, tarant
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -598,7 +600,7 @@ unwrapExports(mailbox);
 
 var noopMaterializer = createCommonjsModule(function (module, exports) {
 /**
- * Copyright (c) 2018-present, wind-js
+ * Copyright (c) 2018-present, tarant
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -628,7 +630,7 @@ unwrapExports(noopMaterializer);
 
 var noopResolver = createCommonjsModule(function (module, exports) {
 /**
- * Copyright (c) 2018-present, wind-js
+ * Copyright (c) 2018-present, tarant
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -654,7 +656,7 @@ unwrapExports(noopResolver);
 
 var noopSupervisor = createCommonjsModule(function (module, exports) {
 /**
- * Copyright (c) 2018-present, wind-js
+ * Copyright (c) 2018-present, tarant
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -675,7 +677,7 @@ unwrapExports(noopSupervisor);
 
 var actorSystemConfigurationBuilder = createCommonjsModule(function (module, exports) {
 /**
- * Copyright (c) 2018-present, wind-js
+ * Copyright (c) 2018-present, tarant
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -733,7 +735,7 @@ unwrapExports(actorSystemConfigurationBuilder);
 
 var actorSystem = createCommonjsModule(function (module, exports) {
 /**
- * Copyright (c) 2018-present, wind-js
+ * Copyright (c) 2018-present, tarant
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -829,7 +831,7 @@ unwrapExports(actorSystem);
 
 var topic = createCommonjsModule(function (module, exports) {
 /**
- * Copyright (c) 2018-present, wind-js
+ * Copyright (c) 2018-present, tarant
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -878,7 +880,7 @@ unwrapExports(topic);
 
 var dist = createCommonjsModule(function (module, exports) {
 /**
- * Copyright (c) 2018-present, wind-js
+ * Copyright (c) 2018-present, tarant
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -903,34 +905,712 @@ var dist_3 = dist.ActorSystemConfigurationBuilder;
 var dist_4 = dist.Topic;
 var dist_5 = dist.ActorMessage;
 
+var uuid$2 = createCommonjsModule(function (module, exports) {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = (function () {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (character) {
+        // tslint:disable-next-line:no-bitwise
+        var randomHex = (Math.random() * 16) | 0;
+        // tslint:disable-next-line:no-bitwise
+        var value = character === 'x' ? randomHex : (randomHex & 0x3) | 0x8;
+        return value.toString(16);
+    });
+});
+});
+
+unwrapExports(uuid$2);
+
+var actor$2 = createCommonjsModule(function (module, exports) {
+/**
+ * Copyright (c) 2018-present, wind-js
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
+var Actor = /** @class */ (function () {
+    function Actor(id) {
+        this.self = this;
+        this.scheduled = new Map();
+        this.busy = false;
+        this.id = id || uuid$2.default();
+        this.partitions = [this.id];
+    }
+    Actor.prototype.onReceiveMessage = function (message) {
+        return tslib_es6.__awaiter(this, void 0, void 0, function () {
+            var actorMessage, result, ex_1, strategy;
+            return tslib_es6.__generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (this.busy) {
+                            return [2 /*return*/, false];
+                        }
+                        this.busy = true;
+                        actorMessage = message.content;
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, 5, 6]);
+                        this.materializer.onBeforeMessage(this, actorMessage);
+                        return [4 /*yield*/, this.dispatchAndPromisify(actorMessage)];
+                    case 2:
+                        result = _a.sent();
+                        actorMessage.resolve(result);
+                        return [3 /*break*/, 6];
+                    case 3:
+                        ex_1 = _a.sent();
+                        this.materializer.onError(this, actorMessage, ex_1);
+                        return [4 /*yield*/, this.supervisor.supervise(this.self, ex_1, actorMessage)];
+                    case 4:
+                        strategy = _a.sent();
+                        if (strategy === 'drop-message') {
+                            actorMessage.reject(ex_1);
+                            return [2 /*return*/, true];
+                        }
+                        else if (strategy === 'retry-message') {
+                            return [2 /*return*/, false];
+                        }
+                        else {
+                            actorMessage.reject(ex_1);
+                            return [2 /*return*/, true];
+                        }
+                        return [3 /*break*/, 6];
+                    case 5:
+                        this.busy = false;
+                        this.materializer.onAfterMessage(this, actorMessage);
+                        return [7 /*endfinally*/];
+                    case 6: return [2 /*return*/, true];
+                }
+            });
+        });
+    };
+    Actor.prototype.supervise = function (actor, exception, message) {
+        return this.supervisor.supervise(actor, exception, message);
+    };
+    Actor.prototype.schedule = function (interval, fn, values) {
+        var _this = this;
+        var id = uuid$2.default();
+        this.scheduled.set(id, setInterval(function () { return fn.apply(_this, values); }, interval));
+        return id;
+    };
+    Actor.prototype.scheduleOnce = function (timeout, fn, values) {
+        var _this = this;
+        var id = uuid$2.default();
+        this.scheduled.set(id, setTimeout(function () {
+            fn.apply(_this, values);
+            _this.scheduled.delete(id);
+        }, timeout));
+        return id;
+    };
+    Actor.prototype.cancel = function (cancellable) {
+        var id = this.scheduled.get(cancellable);
+        clearTimeout(id);
+        clearInterval(id);
+        this.scheduled.delete(cancellable);
+    };
+    Actor.prototype.actorOf = function (classFn, values) {
+        var actor = this.system.actorOf(classFn, values);
+        actor.ref.supervisor = this;
+        return actor;
+    };
+    Actor.prototype.dispatchAndPromisify = function (actorMessage) {
+        try {
+            var r = this.constructor.prototype[actorMessage.methodName].apply(this, actorMessage.arguments);
+            if (r && r.then && r.catch) {
+                return r;
+            }
+            else {
+                return Promise.resolve(r);
+            }
+        }
+        catch (ex) {
+            return Promise.reject(ex);
+        }
+    };
+    Actor.prototype.initialized = function () {
+        this.materializer.onInitialize(this);
+    };
+    return Actor;
+}());
+exports.default = Actor;
+});
+
+unwrapExports(actor$2);
+
+var fiber$2 = createCommonjsModule(function (module, exports) {
+/**
+ * Copyright (c) 2018-present, wind-js
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+var Fiber = /** @class */ (function () {
+    function Fiber(configuration) {
+        this.processors = [];
+        var resources = configuration.resources, tickInterval = configuration.tickInterval;
+        this.configuration = configuration;
+        this.name = "fiber-with" + resources.reduce(function (aggregation, current) { return aggregation + "-" + current; }, '');
+        this.timerId = setInterval(this.tick.bind(this), tickInterval);
+    }
+    Fiber.with = function (config) {
+        return new Fiber(config);
+    };
+    Fiber.prototype.free = function () {
+        clearInterval(this.timerId);
+    };
+    Fiber.prototype.acquire = function (processor) {
+        var _this = this;
+        if (processor.requirements.every(function (req) { return _this.configuration.resources.indexOf(req) !== -1; })) {
+            this.processors.push(processor);
+            return true;
+        }
+        return false;
+    };
+    Fiber.prototype.tick = function () {
+        this.processors.forEach(function (p) { return p.process(); });
+    };
+    return Fiber;
+}());
+exports.default = Fiber;
+});
+
+unwrapExports(fiber$2);
+
+var message$2 = createCommonjsModule(function (module, exports) {
+/**
+ * Copyright (c) 2018-present, wind-js
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+var Message = /** @class */ (function () {
+    function Message(partition, content) {
+        this.partition = partition;
+        this.content = content;
+    }
+    Message.of = function (partition, content) {
+        return new Message(partition, content);
+    };
+    Message.ofJson = function (partition, content) {
+        return new Message(partition, content);
+    };
+    return Message;
+}());
+exports.default = Message;
+});
+
+unwrapExports(message$2);
+
+var actorMessage$2 = createCommonjsModule(function (module, exports) {
+/**
+ * Copyright (c) 2018-present, wind-js
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+var ActorMessage = /** @class */ (function () {
+    function ActorMessage(methodName, args, resolve, reject) {
+        this.methodName = methodName;
+        this.arguments = args;
+        this.resolve = resolve;
+        this.reject = reject;
+    }
+    ActorMessage.of = function (method, args, resolve, reject) {
+        return new ActorMessage(method, args, resolve, reject);
+    };
+    return ActorMessage;
+}());
+exports.default = ActorMessage;
+});
+
+unwrapExports(actorMessage$2);
+
+var actorProxy$2 = createCommonjsModule(function (module, exports) {
+/**
+ * Copyright (c) 2018-present, wind-js
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
+
+var ActorProxy = /** @class */ (function () {
+    function ActorProxy() {
+    }
+    ActorProxy.sendAndReturn = function (mailbox, actorId, methodName, args) {
+        return new Promise(function (resolve, reject) {
+            mailbox.push(message$2.default.of(actorId, actorMessage$2.default.of(methodName, args, resolve, reject)));
+        });
+    };
+    ActorProxy.of = function (mailbox, actor) {
+        var props = Object.getOwnPropertyNames(actor.constructor.prototype);
+        return props
+            .filter(function (e) { return e !== 'constructor'; })
+            .map(function (member) { return [
+            member,
+            function () {
+                var args = [];
+                for (var _i = 0; _i < arguments.length; _i++) {
+                    args[_i] = arguments[_i];
+                }
+                return ActorProxy.sendAndReturn(mailbox, actor.id, member, args);
+            },
+        ]; })
+            .reduce(function (result, _a) {
+            var member = _a[0], method = _a[1];
+            var _b;
+            return (tslib_es6.__assign({}, result, (_b = {}, _b[member] = method, _b)));
+        }, { ref: actor });
+    };
+    return ActorProxy;
+}());
+exports.default = ActorProxy;
+});
+
+unwrapExports(actorProxy$2);
+
+var subscription$2 = createCommonjsModule(function (module, exports) {
+/**
+ * Copyright (c) 2018-present, wind-js
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+
+var Subscription = /** @class */ (function () {
+    function Subscription(id, subscriber) {
+        this.messages = [];
+        this.id = id;
+        this.subscriber = subscriber;
+    }
+    Subscription.prototype.process = function () {
+        return tslib_es6.__awaiter(this, void 0, void 0, function () {
+            var message;
+            return tslib_es6.__generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        message = this.messages[0];
+                        if (!message) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.subscriber.onReceiveMessage(message)];
+                    case 1:
+                        if (_a.sent()) {
+                            this.messages.splice(0, 1);
+                        }
+                        _a.label = 2;
+                    case 2: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    return Subscription;
+}());
+exports.default = Subscription;
+});
+
+unwrapExports(subscription$2);
+
+var mailbox$2 = createCommonjsModule(function (module, exports) {
+/**
+ * Copyright (c) 2018-present, wind-js
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
+
+var Mailbox = /** @class */ (function () {
+    function Mailbox() {
+        this.subscribedPartitions = {};
+        this.subscriptions = {};
+    }
+    Mailbox.empty = function () {
+        return new Mailbox();
+    };
+    Mailbox.prototype.addSubscriber = function (subscriber) {
+        var _this = this;
+        var id = uuid$2.default();
+        var partitions = subscriber.partitions;
+        this.subscribedPartitions[id] = partitions;
+        partitions.forEach(function (partition) {
+            _this.subscriptions[partition] = _this.subscriptions[partition] || [];
+            _this.subscriptions[partition].push(new subscription$2.default(id, subscriber));
+        });
+        return id;
+    };
+    Mailbox.prototype.removeSubscription = function (subscription) {
+        var _this = this;
+        var partitions = this.subscribedPartitions[subscription];
+        partitions.forEach(function (partition) { return (_this.subscriptions[partition] = _this.subscriptions[partition].filter(function (s) { return s.id !== subscription; })); });
+        delete this.subscribedPartitions[subscription];
+    };
+    Mailbox.prototype.push = function (message) {
+        this.subscriptions[message.partition].forEach(function (subscription) { return subscription.messages.push(message); });
+    };
+    Mailbox.prototype.poll = function (subscription) {
+        return tslib_es6.__awaiter(this, void 0, void 0, function () {
+            var partitions;
+            var _this = this;
+            return tslib_es6.__generator(this, function (_a) {
+                partitions = this.subscribedPartitions[subscription];
+                if (!partitions) {
+                    return [2 /*return*/];
+                }
+                partitions.forEach(function (partition) {
+                    return _this.subscriptions[partition]
+                        .filter(function (managedSubscription) { return managedSubscription.id === subscription; })
+                        .forEach(function (managedSubscription) { return tslib_es6.__awaiter(_this, void 0, void 0, function () { return tslib_es6.__generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4 /*yield*/, managedSubscription.process()];
+                            case 1: return [2 /*return*/, _a.sent()];
+                        }
+                    }); }); });
+                });
+                return [2 /*return*/];
+            });
+        });
+    };
+    return Mailbox;
+}());
+exports.default = Mailbox;
+});
+
+unwrapExports(mailbox$2);
+
+var noopMaterializer$2 = createCommonjsModule(function (module, exports) {
+/**
+ * Copyright (c) 2018-present, wind-js
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+var NoopMaterializer = /** @class */ (function () {
+    function NoopMaterializer() {
+    }
+    NoopMaterializer.prototype.onInitialize = function (actor) {
+        //
+    };
+    NoopMaterializer.prototype.onBeforeMessage = function (actor, message) {
+        //
+    };
+    NoopMaterializer.prototype.onAfterMessage = function (actor, message) {
+        //
+    };
+    NoopMaterializer.prototype.onError = function (actor, message, error) {
+        //
+    };
+    return NoopMaterializer;
+}());
+exports.default = NoopMaterializer;
+});
+
+unwrapExports(noopMaterializer$2);
+
+var noopResolver$2 = createCommonjsModule(function (module, exports) {
+/**
+ * Copyright (c) 2018-present, wind-js
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+
+var NoopResolver = /** @class */ (function () {
+    function NoopResolver() {
+    }
+    NoopResolver.prototype.resolveActorById = function (id) {
+        return tslib_es6.__awaiter(this, void 0, void 0, function () {
+            return tslib_es6.__generator(this, function (_a) {
+                return [2 /*return*/, Promise.resolve(undefined)];
+            });
+        });
+    };
+    return NoopResolver;
+}());
+exports.default = NoopResolver;
+});
+
+unwrapExports(noopResolver$2);
+
+var noopSupervisor$2 = createCommonjsModule(function (module, exports) {
+/**
+ * Copyright (c) 2018-present, wind-js
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+var NoopActorSupervisor = /** @class */ (function () {
+    function NoopActorSupervisor() {
+    }
+    NoopActorSupervisor.prototype.supervise = function (actor, exception, message) {
+        return 'drop-message';
+    };
+    return NoopActorSupervisor;
+}());
+exports.default = NoopActorSupervisor;
+});
+
+unwrapExports(noopSupervisor$2);
+
+var actorSystemConfigurationBuilder$2 = createCommonjsModule(function (module, exports) {
+/**
+ * Copyright (c) 2018-present, wind-js
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
+
+
+var ActorSystemConfigurationBuilder = /** @class */ (function () {
+    function ActorSystemConfigurationBuilder() {
+        this.materializer = new noopMaterializer$2.default();
+        this.resolver = new noopResolver$2.default();
+        this.resources = ['default'];
+        this.tickInterval = 1;
+        this.mailbox = mailbox$2.default.empty();
+        this.supervisor = new noopSupervisor$2.default();
+    }
+    ActorSystemConfigurationBuilder.define = function () {
+        return new ActorSystemConfigurationBuilder();
+    };
+    ActorSystemConfigurationBuilder.prototype.withMaterializer = function (materializer) {
+        this.materializer = materializer;
+        return this;
+    };
+    ActorSystemConfigurationBuilder.prototype.withResolver = function (resolver) {
+        this.resolver = resolver;
+        return this;
+    };
+    ActorSystemConfigurationBuilder.prototype.withResources = function (resources) {
+        this.resources = resources;
+        return this;
+    };
+    ActorSystemConfigurationBuilder.prototype.withTickInterval = function (tickInterval) {
+        this.tickInterval = tickInterval;
+        return this;
+    };
+    ActorSystemConfigurationBuilder.prototype.withMailbox = function (mailbox) {
+        this.mailbox = mailbox;
+        return this;
+    };
+    ActorSystemConfigurationBuilder.prototype.withTopSupervisor = function (supervisor) {
+        this.supervisor = supervisor;
+        return this;
+    };
+    ActorSystemConfigurationBuilder.prototype.done = function () {
+        return this;
+    };
+    return ActorSystemConfigurationBuilder;
+}());
+exports.default = ActorSystemConfigurationBuilder;
+});
+
+unwrapExports(actorSystemConfigurationBuilder$2);
+
+var actorSystem$2 = createCommonjsModule(function (module, exports) {
+/**
+ * Copyright (c) 2018-present, wind-js
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
+
+
+var ActorSystem = /** @class */ (function () {
+    function ActorSystem(configuration) {
+        this.requirements = ['default'];
+        this.actors = new Map();
+        this.subscriptions = new Map();
+        var mailbox = configuration.mailbox, resources = configuration.resources, tickInterval = configuration.tickInterval, materializer = configuration.materializer, resolver = configuration.resolver, supervisor = configuration.supervisor;
+        this.mailbox = mailbox;
+        this.materializer = materializer;
+        this.resolver = resolver;
+        this.supervisor = supervisor;
+        this.fiber = fiber$2.default.with({ resources: resources, tickInterval: tickInterval });
+        this.fiber.acquire(this);
+    }
+    ActorSystem.for = function (configuration) {
+        return new ActorSystem(configuration);
+    };
+    ActorSystem.default = function () {
+        return new ActorSystem(actorSystemConfigurationBuilder$2.default.define().done());
+    };
+    ActorSystem.prototype.process = function () {
+        return tslib_es6.__awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return tslib_es6.__generator(this, function (_a) {
+                this.actors.forEach(function (v) { return tslib_es6.__awaiter(_this, void 0, void 0, function () {
+                    return tslib_es6.__generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4 /*yield*/, this.mailbox.poll(this.subscriptions.get(v.id))];
+                            case 1:
+                                _a.sent();
+                                return [2 /*return*/];
+                        }
+                    });
+                }); });
+                return [2 /*return*/];
+            });
+        });
+    };
+    ActorSystem.prototype.free = function () {
+        this.fiber.free();
+    };
+    ActorSystem.prototype.actorOf = function (classFn, values) {
+        var instance = new (classFn.bind.apply(classFn, [void 0].concat(values)))();
+        var proxy = actorProxy$2.default.of(this.mailbox, instance);
+        var subscription = this.mailbox.addSubscriber(instance);
+        this.actors.set(instance.id, instance);
+        this.subscriptions.set(instance.id, subscription);
+        this.setupInstance(instance, proxy);
+        return proxy;
+    };
+    ActorSystem.prototype.actorFor = function (id) {
+        return tslib_es6.__awaiter(this, void 0, void 0, function () {
+            var instance, resolvedActor;
+            return tslib_es6.__generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        instance = this.actors.get(id);
+                        if (!(instance === undefined)) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.resolver.resolveActorById(id)];
+                    case 1:
+                        resolvedActor = _a.sent();
+                        if (resolvedActor === undefined) {
+                            return [2 /*return*/, undefined];
+                        }
+                        this.actors.set(id, resolvedActor);
+                        return [2 /*return*/, actorProxy$2.default.of(this.mailbox, resolvedActor)];
+                    case 2: return [2 /*return*/, actorProxy$2.default.of(this.mailbox, instance)];
+                }
+            });
+        });
+    };
+    ActorSystem.prototype.setupInstance = function (instance, proxy) {
+        instance.self = proxy;
+        instance.system = this;
+        instance.materializer = this.materializer;
+        instance.supervisor = this.supervisor;
+        instance.initialized();
+    };
+    return ActorSystem;
+}());
+exports.default = ActorSystem;
+});
+
+unwrapExports(actorSystem$2);
+
+var topic$2 = createCommonjsModule(function (module, exports) {
+/**
+ * Copyright (c) 2018-present, wind-js
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
+
+var Topic = /** @class */ (function (_super) {
+    tslib_es6.__extends(Topic, _super);
+    function Topic(topicName, consumerClass) {
+        var _this = _super.call(this, 'topics/' + topicName) || this;
+        _this.subscriptions = new Map();
+        var props = Object.getOwnPropertyNames(consumerClass.prototype);
+        _this.constructor = Object.assign({ prototype: { subscribe: _this.subscribe, unsubscribe: _this.unsubscribe } }, _this.constructor);
+        props
+            .filter(function (k) { return k !== 'constructor'; })
+            .forEach(function (k) {
+            _this.constructor.prototype[k] = function () {
+                var args = [];
+                for (var _i = 0; _i < arguments.length; _i++) {
+                    args[_i] = arguments[_i];
+                }
+                _this.subscriptions.forEach(function (actor) { return actor[k].apply(actor, args); });
+            };
+        });
+        return _this;
+    }
+    Topic.for = function (system, name, consumerClass) {
+        return system.actorOf(Topic, [name, consumerClass]);
+    };
+    Topic.prototype.subscribe = function (t) {
+        var id = uuid$2.default();
+        this.subscriptions.set(id, t);
+        return id;
+    };
+    Topic.prototype.unsubscribe = function (id) {
+        this.subscriptions.delete(id);
+    };
+    return Topic;
+}(actor$2.default));
+exports.default = Topic;
+});
+
+unwrapExports(topic$2);
+
+var dist$1 = createCommonjsModule(function (module, exports) {
+/**
+ * Copyright (c) 2018-present, wind-js
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+
+exports.Actor = actor$2.default;
+
+exports.ActorSystem = actorSystem$2.default;
+
+exports.ActorSystemConfigurationBuilder = actorSystemConfigurationBuilder$2.default;
+
+exports.Topic = topic$2.default;
+
+exports.ActorMessage = actorMessage$2.default;
+});
+
+unwrapExports(dist$1);
+var dist_1$1 = dist$1.Actor;
+var dist_2$1 = dist$1.ActorSystem;
+var dist_3$1 = dist$1.ActorSystemConfigurationBuilder;
+var dist_4$1 = dist$1.Topic;
+var dist_5$1 = dist$1.ActorMessage;
+
+var vueActor = createCommonjsModule(function (module, exports) {
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
 var VueActor = /** @class */ (function (_super) {
-    __extends(VueActor, _super);
+    tslib_es6.__extends(VueActor, _super);
     function VueActor() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     return VueActor;
-}(dist_1));
+}(dist$1.Actor));
+exports.VueActor = VueActor;
+});
 
-var AppActor = /** @class */ (function (_super) {
-    __extends(AppActor, _super);
-    function AppActor() {
-        var _this = _super.call(this, "#app") || this;
-        _this.counter = 0;
-        _this.template = "<div>counter: {{counter}}</div>";
-        _this.schedule(1000, _this.incrementCounter, []);
-        return _this;
-    }
-    AppActor.prototype.incrementCounter = function () {
-        this.counter++;
-    };
-    return AppActor;
-}(VueActor));
+unwrapExports(vueActor);
+var vueActor_1 = vueActor.VueActor;
 
-/*!
- * Vue.js v2.5.21
- * (c) 2014-2018 Evan You
- * Released under the MIT License.
- */
+var vue_common = createCommonjsModule(function (module) {
+
 /*  */
 
 var emptyObject = Object.freeze({});
@@ -1467,10 +2147,10 @@ var _isServer;
 var isServerRendering = function () {
   if (_isServer === undefined) {
     /* istanbul ignore if */
-    if (!inBrowser && !inWeex && typeof global !== 'undefined') {
+    if (!inBrowser && !inWeex && typeof commonjsGlobal !== 'undefined') {
       // detect presence of vue-server-renderer and avoid
       // Webpack shimming the process
-      _isServer = global['process'] && global['process'].env.VUE_ENV === 'server';
+      _isServer = commonjsGlobal['process'] && commonjsGlobal['process'].env.VUE_ENV === 'server';
     } else {
       _isServer = false;
     }
@@ -3973,13 +4653,13 @@ var has = {};
 var circular = {};
 var waiting = false;
 var flushing = false;
-var index$1 = 0;
+var index = 0;
 
 /**
  * Reset the scheduler's state.
  */
 function resetSchedulerState () {
-  index$1 = queue.length = activatedChildren.length = 0;
+  index = queue.length = activatedChildren.length = 0;
   has = {};
   {
     circular = {};
@@ -4006,8 +4686,8 @@ function flushSchedulerQueue () {
 
   // do not cache length because more watchers might be pushed
   // as we run existing watchers
-  for (index$1 = 0; index$1 < queue.length; index$1++) {
-    watcher = queue[index$1];
+  for (index = 0; index < queue.length; index++) {
+    watcher = queue[index];
     if (watcher.before) {
       watcher.before();
     }
@@ -4092,7 +4772,7 @@ function queueWatcher (watcher) {
       // if already flushing, splice the watcher based on its id
       // if already past its id, it will be run next immediately.
       var i = queue.length - 1;
-      while (i > index$1 && queue[i].id > watcher.id) {
+      while (i > index && queue[i].id > watcher.id) {
         i--;
       }
       queue.splice(i + 1, 0, watcher);
@@ -7784,7 +8464,7 @@ function genAssignmentCode (
  *
  */
 
-var len, str, chr, index$1$1, expressionPos, expressionEndPos;
+var len, str, chr, index$1, expressionPos, expressionEndPos;
 
 
 
@@ -7795,11 +8475,11 @@ function parseModel (val) {
   len = val.length;
 
   if (val.indexOf('[') < 0 || val.lastIndexOf(']') < len - 1) {
-    index$1$1 = val.lastIndexOf('.');
-    if (index$1$1 > -1) {
+    index$1 = val.lastIndexOf('.');
+    if (index$1 > -1) {
       return {
-        exp: val.slice(0, index$1$1),
-        key: '"' + val.slice(index$1$1 + 1) + '"'
+        exp: val.slice(0, index$1),
+        key: '"' + val.slice(index$1 + 1) + '"'
       }
     } else {
       return {
@@ -7810,7 +8490,7 @@ function parseModel (val) {
   }
 
   str = val;
-  index$1$1 = expressionPos = expressionEndPos = 0;
+  index$1 = expressionPos = expressionEndPos = 0;
 
   while (!eof()) {
     chr = next();
@@ -7829,11 +8509,11 @@ function parseModel (val) {
 }
 
 function next () {
-  return str.charCodeAt(++index$1$1)
+  return str.charCodeAt(++index$1)
 }
 
 function eof () {
-  return index$1$1 >= len
+  return index$1 >= len
 }
 
 function isStringStart (chr) {
@@ -7842,7 +8522,7 @@ function isStringStart (chr) {
 
 function parseBracket (chr) {
   var inBracket = 1;
-  expressionPos = index$1$1;
+  expressionPos = index$1;
   while (!eof()) {
     chr = next();
     if (isStringStart(chr)) {
@@ -7852,7 +8532,7 @@ function parseBracket (chr) {
     if (chr === 0x5B) { inBracket++; }
     if (chr === 0x5D) { inBracket--; }
     if (inBracket === 0) {
-      expressionEndPos = index$1$1;
+      expressionEndPos = index$1;
       break
     }
   }
@@ -11978,28 +12658,73 @@ function getOuterHTML (el) {
 
 Vue.compile = compileToFunctions;
 
+module.exports = Vue;
+});
+
+unwrapExports(vue_common);
+
+var vueRenderer = createCommonjsModule(function (module, exports) {
+Object.defineProperty(exports, "__esModule", { value: true });
+
+var vue_1 = tslib_es6.__importDefault(vue_common);
 var VueRenderer = /** @class */ (function () {
     function VueRenderer() {
     }
     VueRenderer.prototype.onInitialize = function (actor) {
-        new Vue({
-            template: actor.template,
+        // tslint:disable-next-line:no-unused-expression
+        new vue_1.default({
+            data: actor,
             el: actor.id,
-            data: actor
+            template: actor.template,
         });
     };
     VueRenderer.prototype.onBeforeMessage = function (actor, message) {
+        //
     };
     VueRenderer.prototype.onAfterMessage = function (actor, message) {
+        //
     };
     VueRenderer.prototype.onError = function (actor, message, error) {
+        //
     };
     return VueRenderer;
 }());
+exports.VueRenderer = VueRenderer;
+});
+
+unwrapExports(vueRenderer);
+var vueRenderer_1 = vueRenderer.VueRenderer;
+
+var dist$2 = createCommonjsModule(function (module, exports) {
+Object.defineProperty(exports, "__esModule", { value: true });
+
+exports.VueActor = vueActor.VueActor;
+
+exports.VueRenderer = vueRenderer.VueRenderer;
+});
+
+unwrapExports(dist$2);
+var dist_1$2 = dist$2.VueActor;
+var dist_2$2 = dist$2.VueRenderer;
+
+var AppActor = /** @class */ (function (_super) {
+    __extends(AppActor, _super);
+    function AppActor() {
+        var _this = _super.call(this, "#app") || this;
+        _this.counter = 0;
+        _this.template = "<div>counter: {{counter}}</div>";
+        _this.schedule(1000, _this.incrementCounter, []);
+        return _this;
+    }
+    AppActor.prototype.incrementCounter = function () {
+        this.counter++;
+    };
+    return AppActor;
+}(dist_1$2));
 
 window.onload = function () {
     var system = dist_2.for(dist_3.define()
-        .withMaterializer(new VueRenderer())
+        .withMaterializer(new dist_2$2())
         .done());
     system.actorOf(AppActor, []);
 };
