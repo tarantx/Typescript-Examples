@@ -71,11 +71,6 @@
     postcss-modules-sync "^1.0.0"
     source-map "0.6.*"
 
-"@wind-js/actor@2.1.7":
-  version "2.1.7"
-  resolved "https://registry.yarnpkg.com/@wind-js/actor/-/actor-2.1.7.tgz#abb89b77e380c7ff250a7d6d1a0fe1b934d98247"
-  integrity sha512-2UXrqzu0gupre4RQEETr/SdTABcpYI/BJa7//Rpjmr/ccE44Yw1SJajusYA5TGJiOJX1lmrFdkqsG0ugfpnaPg==
-
 abab@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.0.tgz#aba0ab4c5eee2d4c79d3487d85450fb2376ebb0f"
@@ -3705,6 +3700,23 @@ tar@^4:
     mkdirp "^0.5.0"
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
+
+"tarant-vue@https://github.com/tarantx/tarant-vue":
+  version "0.0.1"
+  resolved "https://github.com/tarantx/tarant-vue#9cec702f3d04857c440d5785099a56325e58b9ff"
+  dependencies:
+    tarant "2.1.9"
+    vue "2.5.21"
+
+tarant@2.1.10:
+  version "2.1.10"
+  resolved "https://registry.yarnpkg.com/tarant/-/tarant-2.1.10.tgz#104c3108258961a96505da0e2cacae1a79d53215"
+  integrity sha512-02agIwnS0ibCppISyba7JO2kvch51OtOkNYHt8cFM5/eExAm0cKrfB5lbflphxEIkr7w90Pa+Zwzv6I2q7LZKQ==
+
+tarant@2.1.9:
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/tarant/-/tarant-2.1.9.tgz#1b2dcc7af49351b9b2c17efc1bea18f471f48ab2"
+  integrity sha512-Qtt1Eu9zSec6wj7GYF/1pTuMSJs+yPOXmCNgrOH6u68ItYU+EtHq60kJfmQzDPRI4hVQ7juJf1JVxYJHnAySKw==
 
 test-exclude@^4.2.1:
   version "4.2.3"

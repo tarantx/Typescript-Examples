@@ -1,9 +1,9 @@
 {
   "name": "vue-example",
   "version": "0.0.1",
-  "description": "a vue example on how to use the wind framework",
+  "description": "a vue example on how to use the tarant framework",
   "main": "index.js",
-  "repository": "git@github.com:wind-js/vue-example.git",
+  "repository": "git@github.com:tarantx/vue-example.git",
   "author": "kanekotic <alvarojosepl@gmail.com>",
   "license": "MIT",
   "private": false,
@@ -11,12 +11,13 @@
     "build": "rollup -c"
   },
   "dependencies": {
+    "tarant": "2.1.10",
+    "tarant-vue": "https://github.com/tarantx/tarant-vue",
     "vue": "2.5.21"
   },
   "devDependencies": {
     "@types/faker": "4.1.4",
     "@types/jest": "23.3.10",
-    "@wind-js/actor": "2.1.7",
     "faker": "4.1.0",
     "jest": "23.6.0",
     "prettier": "1.15.3",

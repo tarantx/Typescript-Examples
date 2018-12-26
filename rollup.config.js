@@ -13,7 +13,7 @@ export default {
   },
   plugins: [
     alias({
-      vue: path.resolve('./node_modules/vue/dist/vue.esm.js')
+      vue: path.resolve('./node_modules/vue/dist/vue.common.js')
     }),
     nodeResolve(),
     commonjs(),

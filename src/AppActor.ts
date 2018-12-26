@@ -1,4 +1,4 @@
-import { VueActor } from "../Models/VueActor";
+import { VueActor } from "tarant-vue";
 
 export default class AppActor extends VueActor {
     constructor() {
