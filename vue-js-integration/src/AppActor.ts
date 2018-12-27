@@ -3,8 +3,6 @@ import { VueActor } from "tarant-vue";
 export default class AppActor extends VueActor {
   constructor() {
       super("#app")
-
-      this.template = '<button v-on:click="addOne">{{counter}}</button>'
       this.counter = 0
   }
 
@@ -13,5 +11,5 @@ export default class AppActor extends VueActor {
   }
 
   private counter = 0; 
-  readonly template : string = "<div>counter: {{counter}}</div>"
+  readonly template : string = '<button v-on:click="addOne">{{counter}}</button>'
 }
