@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "example": "tsc && node dist/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "tarant": "^2.1.10",
-    "tslib": "^1.9.3"
+    "tarant": "^2.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.18",
+    "tslib": "1.9.3",
+    "typescript": "3.2.2"
   }
 }
