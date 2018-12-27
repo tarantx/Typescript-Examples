@@ -11,8 +11,8 @@
     "build": "rollup -c"
   },
   "dependencies": {
-    "tarant": "2.1.10",
-    "tarant-vue": "https://github.com/tarantx/tarant-vue",
+    "tarant": "2.3.2",
+    "tarant-vue": "0.1.0",
     "vue": "2.5.21"
   },
   "devDependencies": {

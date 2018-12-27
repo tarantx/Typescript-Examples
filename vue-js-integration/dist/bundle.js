@@ -246,6 +246,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Actor = /** @class */ (function () {
     function Actor(id) {
         this.self = this;
+        this.materializers = [];
         this.scheduled = new Map();
         this.busy = false;
         this.id = id || uuid.default();
@@ -254,6 +255,7 @@ var Actor = /** @class */ (function () {
     Actor.prototype.onReceiveMessage = function (message) {
         return tslib_es6.__awaiter(this, void 0, void 0, function () {
             var actorMessage, result, ex_1, strategy;
+            var _this = this;
             return tslib_es6.__generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -265,7 +267,7 @@ var Actor = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, 5, 6]);
-                        this.materializer.onBeforeMessage(this, actorMessage);
+                        this.materializers.forEach(function (materializer) { return materializer.onBeforeMessage(_this, actorMessage); });
                         return [4 /*yield*/, this.dispatchAndPromisify(actorMessage)];
                     case 2:
                         result = _a.sent();
@@ -273,7 +275,7 @@ var Actor = /** @class */ (function () {
                         return [3 /*break*/, 6];
                     case 3:
                         ex_1 = _a.sent();
-                        this.materializer.onError(this, actorMessage, ex_1);
+                        this.materializers.forEach(function (materializer) { return materializer.onError(_this, actorMessage, ex_1); });
                         return [4 /*yield*/, this.supervisor.supervise(this.self, ex_1, actorMessage)];
                     case 4:
                         strategy = _a.sent();
@@ -291,7 +293,7 @@ var Actor = /** @class */ (function () {
                         return [3 /*break*/, 6];
                     case 5:
                         this.busy = false;
-                        this.materializer.onAfterMessage(this, actorMessage);
+                        this.materializers.forEach(function (materializer) { return materializer.onAfterMessage(_this, actorMessage); });
                         return [7 /*endfinally*/];
                     case 6: return [2 /*return*/, true];
                 }
@@ -342,7 +344,8 @@ var Actor = /** @class */ (function () {
         }
     };
     Actor.prototype.initialized = function () {
-        this.materializer.onInitialize(this);
+        var _this = this;
+        this.materializers.forEach(function (materializer) { return materializer.onInitialize(_this); });
     };
     return Actor;
 }());
@@ -598,62 +601,6 @@ exports.default = Mailbox;
 
 unwrapExports(mailbox);
 
-var noopMaterializer = createCommonjsModule(function (module, exports) {
-/**
- * Copyright (c) 2018-present, tarant
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-var NoopMaterializer = /** @class */ (function () {
-    function NoopMaterializer() {
-    }
-    NoopMaterializer.prototype.onInitialize = function (actor) {
-        //
-    };
-    NoopMaterializer.prototype.onBeforeMessage = function (actor, message) {
-        //
-    };
-    NoopMaterializer.prototype.onAfterMessage = function (actor, message) {
-        //
-    };
-    NoopMaterializer.prototype.onError = function (actor, message, error) {
-        //
-    };
-    return NoopMaterializer;
-}());
-exports.default = NoopMaterializer;
-});
-
-unwrapExports(noopMaterializer);
-
-var noopResolver = createCommonjsModule(function (module, exports) {
-/**
- * Copyright (c) 2018-present, tarant
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-
-var NoopResolver = /** @class */ (function () {
-    function NoopResolver() {
-    }
-    NoopResolver.prototype.resolveActorById = function (id) {
-        return tslib_es6.__awaiter(this, void 0, void 0, function () {
-            return tslib_es6.__generator(this, function (_a) {
-                return [2 /*return*/, Promise.resolve(undefined)];
-            });
-        });
-    };
-    return NoopResolver;
-}());
-exports.default = NoopResolver;
-});
-
-unwrapExports(noopResolver);
-
 var noopSupervisor = createCommonjsModule(function (module, exports) {
 /**
  * Copyright (c) 2018-present, tarant
@@ -685,12 +632,10 @@ var actorSystemConfigurationBuilder = createCommonjsModule(function (module, exp
 Object.defineProperty(exports, "__esModule", { value: true });
 
 
-
-
 var ActorSystemConfigurationBuilder = /** @class */ (function () {
     function ActorSystemConfigurationBuilder() {
-        this.materializer = new noopMaterializer.default();
-        this.resolver = new noopResolver.default();
+        this.materializers = [];
+        this.resolvers = [];
         this.resources = ['default'];
         this.tickInterval = 1;
         this.mailbox = mailbox.default.empty();
@@ -699,12 +644,12 @@ var ActorSystemConfigurationBuilder = /** @class */ (function () {
     ActorSystemConfigurationBuilder.define = function () {
         return new ActorSystemConfigurationBuilder();
     };
-    ActorSystemConfigurationBuilder.prototype.withMaterializer = function (materializer) {
-        this.materializer = materializer;
+    ActorSystemConfigurationBuilder.prototype.withMaterializers = function (materializers) {
+        this.materializers = materializers;
         return this;
     };
-    ActorSystemConfigurationBuilder.prototype.withResolver = function (resolver) {
-        this.resolver = resolver;
+    ActorSystemConfigurationBuilder.prototype.withResolvers = function (resolvers) {
+        this.resolvers = resolvers;
         return this;
     };
     ActorSystemConfigurationBuilder.prototype.withResources = function (resources) {
@@ -750,10 +695,10 @@ var ActorSystem = /** @class */ (function () {
         this.requirements = ['default'];
         this.actors = new Map();
         this.subscriptions = new Map();
-        var mailbox = configuration.mailbox, resources = configuration.resources, tickInterval = configuration.tickInterval, materializer = configuration.materializer, resolver = configuration.resolver, supervisor = configuration.supervisor;
+        var mailbox = configuration.mailbox, resources = configuration.resources, tickInterval = configuration.tickInterval, materializers = configuration.materializers, resolvers = configuration.resolvers, supervisor = configuration.supervisor;
         this.mailbox = mailbox;
-        this.materializer = materializer;
-        this.resolver = resolver;
+        this.materializers = materializers;
+        this.resolvers = resolvers;
         this.supervisor = supervisor;
         this.fiber = fiber.default.with({ resources: resources, tickInterval: tickInterval });
         this.fiber.acquire(this);
@@ -783,7 +728,8 @@ var ActorSystem = /** @class */ (function () {
         });
     };
     ActorSystem.prototype.free = function () {
-        this.fiber.free();
+        var _this = this;
+        setTimeout(function () { return _this.fiber.free(); }, 0);
     };
     ActorSystem.prototype.actorOf = function (classFn, values) {
         var instance = new (classFn.bind.apply(classFn, [void 0].concat(values)))();
@@ -796,21 +742,38 @@ var ActorSystem = /** @class */ (function () {
     };
     ActorSystem.prototype.actorFor = function (id) {
         return tslib_es6.__awaiter(this, void 0, void 0, function () {
-            var instance, resolvedActor;
-            return tslib_es6.__generator(this, function (_a) {
-                switch (_a.label) {
+            var instance, _i, _a, resolver, _1;
+            return tslib_es6.__generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         instance = this.actors.get(id);
-                        if (!(instance === undefined)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.resolver.resolveActorById(id)];
+                        if (!(instance === undefined)) return [3 /*break*/, 7];
+                        _i = 0, _a = this.resolvers;
+                        _b.label = 1;
                     case 1:
-                        resolvedActor = _a.sent();
-                        if (resolvedActor === undefined) {
-                            return [2 /*return*/, undefined];
+                        if (!(_i < _a.length)) return [3 /*break*/, 6];
+                        resolver = _a[_i];
+                        _b.label = 2;
+                    case 2:
+                        _b.trys.push([2, 4, , 5]);
+                        return [4 /*yield*/, resolver.resolveActorById(id)];
+                    case 3:
+                        instance = (_b.sent());
+                        return [3 /*break*/, 6];
+                    case 4:
+                        _1 = _b.sent();
+                        return [3 /*break*/, 5];
+                    case 5:
+                        _i++;
+                        return [3 /*break*/, 1];
+                    case 6:
+                        if (instance === undefined) {
+                            return [2 /*return*/, Promise.reject("unable to resolve actor " + id)];
                         }
-                        this.actors.set(id, resolvedActor);
-                        return [2 /*return*/, actorProxy.default.of(this.mailbox, resolvedActor)];
-                    case 2: return [2 /*return*/, actorProxy.default.of(this.mailbox, instance)];
+                        this.actors.set(id, instance);
+                        this.subscriptions.set(instance.id, this.mailbox.addSubscriber(instance));
+                        _b.label = 7;
+                    case 7: return [2 /*return*/, actorProxy.default.of(this.mailbox, instance)];
                 }
             });
         });
@@ -818,7 +781,7 @@ var ActorSystem = /** @class */ (function () {
     ActorSystem.prototype.setupInstance = function (instance, proxy) {
         instance.self = proxy;
         instance.system = this;
-        instance.materializer = this.materializer;
+        instance.materializers = this.materializers;
         instance.supervisor = this.supervisor;
         instance.initialized();
     };
@@ -905,693 +868,6 @@ var dist_3 = dist.ActorSystemConfigurationBuilder;
 var dist_4 = dist.Topic;
 var dist_5 = dist.ActorMessage;
 
-var uuid$2 = createCommonjsModule(function (module, exports) {
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = (function () {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (character) {
-        // tslint:disable-next-line:no-bitwise
-        var randomHex = (Math.random() * 16) | 0;
-        // tslint:disable-next-line:no-bitwise
-        var value = character === 'x' ? randomHex : (randomHex & 0x3) | 0x8;
-        return value.toString(16);
-    });
-});
-});
-
-unwrapExports(uuid$2);
-
-var actor$2 = createCommonjsModule(function (module, exports) {
-/**
- * Copyright (c) 2018-present, wind-js
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-
-
-var Actor = /** @class */ (function () {
-    function Actor(id) {
-        this.self = this;
-        this.scheduled = new Map();
-        this.busy = false;
-        this.id = id || uuid$2.default();
-        this.partitions = [this.id];
-    }
-    Actor.prototype.onReceiveMessage = function (message) {
-        return tslib_es6.__awaiter(this, void 0, void 0, function () {
-            var actorMessage, result, ex_1, strategy;
-            return tslib_es6.__generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (this.busy) {
-                            return [2 /*return*/, false];
-                        }
-                        this.busy = true;
-                        actorMessage = message.content;
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 3, 5, 6]);
-                        this.materializer.onBeforeMessage(this, actorMessage);
-                        return [4 /*yield*/, this.dispatchAndPromisify(actorMessage)];
-                    case 2:
-                        result = _a.sent();
-                        actorMessage.resolve(result);
-                        return [3 /*break*/, 6];
-                    case 3:
-                        ex_1 = _a.sent();
-                        this.materializer.onError(this, actorMessage, ex_1);
-                        return [4 /*yield*/, this.supervisor.supervise(this.self, ex_1, actorMessage)];
-                    case 4:
-                        strategy = _a.sent();
-                        if (strategy === 'drop-message') {
-                            actorMessage.reject(ex_1);
-                            return [2 /*return*/, true];
-                        }
-                        else if (strategy === 'retry-message') {
-                            return [2 /*return*/, false];
-                        }
-                        else {
-                            actorMessage.reject(ex_1);
-                            return [2 /*return*/, true];
-                        }
-                        return [3 /*break*/, 6];
-                    case 5:
-                        this.busy = false;
-                        this.materializer.onAfterMessage(this, actorMessage);
-                        return [7 /*endfinally*/];
-                    case 6: return [2 /*return*/, true];
-                }
-            });
-        });
-    };
-    Actor.prototype.supervise = function (actor, exception, message) {
-        return this.supervisor.supervise(actor, exception, message);
-    };
-    Actor.prototype.schedule = function (interval, fn, values) {
-        var _this = this;
-        var id = uuid$2.default();
-        this.scheduled.set(id, setInterval(function () { return fn.apply(_this, values); }, interval));
-        return id;
-    };
-    Actor.prototype.scheduleOnce = function (timeout, fn, values) {
-        var _this = this;
-        var id = uuid$2.default();
-        this.scheduled.set(id, setTimeout(function () {
-            fn.apply(_this, values);
-            _this.scheduled.delete(id);
-        }, timeout));
-        return id;
-    };
-    Actor.prototype.cancel = function (cancellable) {
-        var id = this.scheduled.get(cancellable);
-        clearTimeout(id);
-        clearInterval(id);
-        this.scheduled.delete(cancellable);
-    };
-    Actor.prototype.actorOf = function (classFn, values) {
-        var actor = this.system.actorOf(classFn, values);
-        actor.ref.supervisor = this;
-        return actor;
-    };
-    Actor.prototype.dispatchAndPromisify = function (actorMessage) {
-        try {
-            var r = this.constructor.prototype[actorMessage.methodName].apply(this, actorMessage.arguments);
-            if (r && r.then && r.catch) {
-                return r;
-            }
-            else {
-                return Promise.resolve(r);
-            }
-        }
-        catch (ex) {
-            return Promise.reject(ex);
-        }
-    };
-    Actor.prototype.initialized = function () {
-        this.materializer.onInitialize(this);
-    };
-    return Actor;
-}());
-exports.default = Actor;
-});
-
-unwrapExports(actor$2);
-
-var fiber$2 = createCommonjsModule(function (module, exports) {
-/**
- * Copyright (c) 2018-present, wind-js
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-var Fiber = /** @class */ (function () {
-    function Fiber(configuration) {
-        this.processors = [];
-        var resources = configuration.resources, tickInterval = configuration.tickInterval;
-        this.configuration = configuration;
-        this.name = "fiber-with" + resources.reduce(function (aggregation, current) { return aggregation + "-" + current; }, '');
-        this.timerId = setInterval(this.tick.bind(this), tickInterval);
-    }
-    Fiber.with = function (config) {
-        return new Fiber(config);
-    };
-    Fiber.prototype.free = function () {
-        clearInterval(this.timerId);
-    };
-    Fiber.prototype.acquire = function (processor) {
-        var _this = this;
-        if (processor.requirements.every(function (req) { return _this.configuration.resources.indexOf(req) !== -1; })) {
-            this.processors.push(processor);
-            return true;
-        }
-        return false;
-    };
-    Fiber.prototype.tick = function () {
-        this.processors.forEach(function (p) { return p.process(); });
-    };
-    return Fiber;
-}());
-exports.default = Fiber;
-});
-
-unwrapExports(fiber$2);
-
-var message$2 = createCommonjsModule(function (module, exports) {
-/**
- * Copyright (c) 2018-present, wind-js
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-var Message = /** @class */ (function () {
-    function Message(partition, content) {
-        this.partition = partition;
-        this.content = content;
-    }
-    Message.of = function (partition, content) {
-        return new Message(partition, content);
-    };
-    Message.ofJson = function (partition, content) {
-        return new Message(partition, content);
-    };
-    return Message;
-}());
-exports.default = Message;
-});
-
-unwrapExports(message$2);
-
-var actorMessage$2 = createCommonjsModule(function (module, exports) {
-/**
- * Copyright (c) 2018-present, wind-js
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-var ActorMessage = /** @class */ (function () {
-    function ActorMessage(methodName, args, resolve, reject) {
-        this.methodName = methodName;
-        this.arguments = args;
-        this.resolve = resolve;
-        this.reject = reject;
-    }
-    ActorMessage.of = function (method, args, resolve, reject) {
-        return new ActorMessage(method, args, resolve, reject);
-    };
-    return ActorMessage;
-}());
-exports.default = ActorMessage;
-});
-
-unwrapExports(actorMessage$2);
-
-var actorProxy$2 = createCommonjsModule(function (module, exports) {
-/**
- * Copyright (c) 2018-present, wind-js
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-
-
-
-var ActorProxy = /** @class */ (function () {
-    function ActorProxy() {
-    }
-    ActorProxy.sendAndReturn = function (mailbox, actorId, methodName, args) {
-        return new Promise(function (resolve, reject) {
-            mailbox.push(message$2.default.of(actorId, actorMessage$2.default.of(methodName, args, resolve, reject)));
-        });
-    };
-    ActorProxy.of = function (mailbox, actor) {
-        var props = Object.getOwnPropertyNames(actor.constructor.prototype);
-        return props
-            .filter(function (e) { return e !== 'constructor'; })
-            .map(function (member) { return [
-            member,
-            function () {
-                var args = [];
-                for (var _i = 0; _i < arguments.length; _i++) {
-                    args[_i] = arguments[_i];
-                }
-                return ActorProxy.sendAndReturn(mailbox, actor.id, member, args);
-            },
-        ]; })
-            .reduce(function (result, _a) {
-            var member = _a[0], method = _a[1];
-            var _b;
-            return (tslib_es6.__assign({}, result, (_b = {}, _b[member] = method, _b)));
-        }, { ref: actor });
-    };
-    return ActorProxy;
-}());
-exports.default = ActorProxy;
-});
-
-unwrapExports(actorProxy$2);
-
-var subscription$2 = createCommonjsModule(function (module, exports) {
-/**
- * Copyright (c) 2018-present, wind-js
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-
-var Subscription = /** @class */ (function () {
-    function Subscription(id, subscriber) {
-        this.messages = [];
-        this.id = id;
-        this.subscriber = subscriber;
-    }
-    Subscription.prototype.process = function () {
-        return tslib_es6.__awaiter(this, void 0, void 0, function () {
-            var message;
-            return tslib_es6.__generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        message = this.messages[0];
-                        if (!message) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.subscriber.onReceiveMessage(message)];
-                    case 1:
-                        if (_a.sent()) {
-                            this.messages.splice(0, 1);
-                        }
-                        _a.label = 2;
-                    case 2: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    return Subscription;
-}());
-exports.default = Subscription;
-});
-
-unwrapExports(subscription$2);
-
-var mailbox$2 = createCommonjsModule(function (module, exports) {
-/**
- * Copyright (c) 2018-present, wind-js
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-
-
-
-var Mailbox = /** @class */ (function () {
-    function Mailbox() {
-        this.subscribedPartitions = {};
-        this.subscriptions = {};
-    }
-    Mailbox.empty = function () {
-        return new Mailbox();
-    };
-    Mailbox.prototype.addSubscriber = function (subscriber) {
-        var _this = this;
-        var id = uuid$2.default();
-        var partitions = subscriber.partitions;
-        this.subscribedPartitions[id] = partitions;
-        partitions.forEach(function (partition) {
-            _this.subscriptions[partition] = _this.subscriptions[partition] || [];
-            _this.subscriptions[partition].push(new subscription$2.default(id, subscriber));
-        });
-        return id;
-    };
-    Mailbox.prototype.removeSubscription = function (subscription) {
-        var _this = this;
-        var partitions = this.subscribedPartitions[subscription];
-        partitions.forEach(function (partition) { return (_this.subscriptions[partition] = _this.subscriptions[partition].filter(function (s) { return s.id !== subscription; })); });
-        delete this.subscribedPartitions[subscription];
-    };
-    Mailbox.prototype.push = function (message) {
-        this.subscriptions[message.partition].forEach(function (subscription) { return subscription.messages.push(message); });
-    };
-    Mailbox.prototype.poll = function (subscription) {
-        return tslib_es6.__awaiter(this, void 0, void 0, function () {
-            var partitions;
-            var _this = this;
-            return tslib_es6.__generator(this, function (_a) {
-                partitions = this.subscribedPartitions[subscription];
-                if (!partitions) {
-                    return [2 /*return*/];
-                }
-                partitions.forEach(function (partition) {
-                    return _this.subscriptions[partition]
-                        .filter(function (managedSubscription) { return managedSubscription.id === subscription; })
-                        .forEach(function (managedSubscription) { return tslib_es6.__awaiter(_this, void 0, void 0, function () { return tslib_es6.__generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0: return [4 /*yield*/, managedSubscription.process()];
-                            case 1: return [2 /*return*/, _a.sent()];
-                        }
-                    }); }); });
-                });
-                return [2 /*return*/];
-            });
-        });
-    };
-    return Mailbox;
-}());
-exports.default = Mailbox;
-});
-
-unwrapExports(mailbox$2);
-
-var noopMaterializer$2 = createCommonjsModule(function (module, exports) {
-/**
- * Copyright (c) 2018-present, wind-js
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-var NoopMaterializer = /** @class */ (function () {
-    function NoopMaterializer() {
-    }
-    NoopMaterializer.prototype.onInitialize = function (actor) {
-        //
-    };
-    NoopMaterializer.prototype.onBeforeMessage = function (actor, message) {
-        //
-    };
-    NoopMaterializer.prototype.onAfterMessage = function (actor, message) {
-        //
-    };
-    NoopMaterializer.prototype.onError = function (actor, message, error) {
-        //
-    };
-    return NoopMaterializer;
-}());
-exports.default = NoopMaterializer;
-});
-
-unwrapExports(noopMaterializer$2);
-
-var noopResolver$2 = createCommonjsModule(function (module, exports) {
-/**
- * Copyright (c) 2018-present, wind-js
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-
-var NoopResolver = /** @class */ (function () {
-    function NoopResolver() {
-    }
-    NoopResolver.prototype.resolveActorById = function (id) {
-        return tslib_es6.__awaiter(this, void 0, void 0, function () {
-            return tslib_es6.__generator(this, function (_a) {
-                return [2 /*return*/, Promise.resolve(undefined)];
-            });
-        });
-    };
-    return NoopResolver;
-}());
-exports.default = NoopResolver;
-});
-
-unwrapExports(noopResolver$2);
-
-var noopSupervisor$2 = createCommonjsModule(function (module, exports) {
-/**
- * Copyright (c) 2018-present, wind-js
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-var NoopActorSupervisor = /** @class */ (function () {
-    function NoopActorSupervisor() {
-    }
-    NoopActorSupervisor.prototype.supervise = function (actor, exception, message) {
-        return 'drop-message';
-    };
-    return NoopActorSupervisor;
-}());
-exports.default = NoopActorSupervisor;
-});
-
-unwrapExports(noopSupervisor$2);
-
-var actorSystemConfigurationBuilder$2 = createCommonjsModule(function (module, exports) {
-/**
- * Copyright (c) 2018-present, wind-js
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-
-
-
-
-var ActorSystemConfigurationBuilder = /** @class */ (function () {
-    function ActorSystemConfigurationBuilder() {
-        this.materializer = new noopMaterializer$2.default();
-        this.resolver = new noopResolver$2.default();
-        this.resources = ['default'];
-        this.tickInterval = 1;
-        this.mailbox = mailbox$2.default.empty();
-        this.supervisor = new noopSupervisor$2.default();
-    }
-    ActorSystemConfigurationBuilder.define = function () {
-        return new ActorSystemConfigurationBuilder();
-    };
-    ActorSystemConfigurationBuilder.prototype.withMaterializer = function (materializer) {
-        this.materializer = materializer;
-        return this;
-    };
-    ActorSystemConfigurationBuilder.prototype.withResolver = function (resolver) {
-        this.resolver = resolver;
-        return this;
-    };
-    ActorSystemConfigurationBuilder.prototype.withResources = function (resources) {
-        this.resources = resources;
-        return this;
-    };
-    ActorSystemConfigurationBuilder.prototype.withTickInterval = function (tickInterval) {
-        this.tickInterval = tickInterval;
-        return this;
-    };
-    ActorSystemConfigurationBuilder.prototype.withMailbox = function (mailbox) {
-        this.mailbox = mailbox;
-        return this;
-    };
-    ActorSystemConfigurationBuilder.prototype.withTopSupervisor = function (supervisor) {
-        this.supervisor = supervisor;
-        return this;
-    };
-    ActorSystemConfigurationBuilder.prototype.done = function () {
-        return this;
-    };
-    return ActorSystemConfigurationBuilder;
-}());
-exports.default = ActorSystemConfigurationBuilder;
-});
-
-unwrapExports(actorSystemConfigurationBuilder$2);
-
-var actorSystem$2 = createCommonjsModule(function (module, exports) {
-/**
- * Copyright (c) 2018-present, wind-js
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-
-
-
-
-var ActorSystem = /** @class */ (function () {
-    function ActorSystem(configuration) {
-        this.requirements = ['default'];
-        this.actors = new Map();
-        this.subscriptions = new Map();
-        var mailbox = configuration.mailbox, resources = configuration.resources, tickInterval = configuration.tickInterval, materializer = configuration.materializer, resolver = configuration.resolver, supervisor = configuration.supervisor;
-        this.mailbox = mailbox;
-        this.materializer = materializer;
-        this.resolver = resolver;
-        this.supervisor = supervisor;
-        this.fiber = fiber$2.default.with({ resources: resources, tickInterval: tickInterval });
-        this.fiber.acquire(this);
-    }
-    ActorSystem.for = function (configuration) {
-        return new ActorSystem(configuration);
-    };
-    ActorSystem.default = function () {
-        return new ActorSystem(actorSystemConfigurationBuilder$2.default.define().done());
-    };
-    ActorSystem.prototype.process = function () {
-        return tslib_es6.__awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return tslib_es6.__generator(this, function (_a) {
-                this.actors.forEach(function (v) { return tslib_es6.__awaiter(_this, void 0, void 0, function () {
-                    return tslib_es6.__generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0: return [4 /*yield*/, this.mailbox.poll(this.subscriptions.get(v.id))];
-                            case 1:
-                                _a.sent();
-                                return [2 /*return*/];
-                        }
-                    });
-                }); });
-                return [2 /*return*/];
-            });
-        });
-    };
-    ActorSystem.prototype.free = function () {
-        this.fiber.free();
-    };
-    ActorSystem.prototype.actorOf = function (classFn, values) {
-        var instance = new (classFn.bind.apply(classFn, [void 0].concat(values)))();
-        var proxy = actorProxy$2.default.of(this.mailbox, instance);
-        var subscription = this.mailbox.addSubscriber(instance);
-        this.actors.set(instance.id, instance);
-        this.subscriptions.set(instance.id, subscription);
-        this.setupInstance(instance, proxy);
-        return proxy;
-    };
-    ActorSystem.prototype.actorFor = function (id) {
-        return tslib_es6.__awaiter(this, void 0, void 0, function () {
-            var instance, resolvedActor;
-            return tslib_es6.__generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        instance = this.actors.get(id);
-                        if (!(instance === undefined)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.resolver.resolveActorById(id)];
-                    case 1:
-                        resolvedActor = _a.sent();
-                        if (resolvedActor === undefined) {
-                            return [2 /*return*/, undefined];
-                        }
-                        this.actors.set(id, resolvedActor);
-                        return [2 /*return*/, actorProxy$2.default.of(this.mailbox, resolvedActor)];
-                    case 2: return [2 /*return*/, actorProxy$2.default.of(this.mailbox, instance)];
-                }
-            });
-        });
-    };
-    ActorSystem.prototype.setupInstance = function (instance, proxy) {
-        instance.self = proxy;
-        instance.system = this;
-        instance.materializer = this.materializer;
-        instance.supervisor = this.supervisor;
-        instance.initialized();
-    };
-    return ActorSystem;
-}());
-exports.default = ActorSystem;
-});
-
-unwrapExports(actorSystem$2);
-
-var topic$2 = createCommonjsModule(function (module, exports) {
-/**
- * Copyright (c) 2018-present, wind-js
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-
-
-
-var Topic = /** @class */ (function (_super) {
-    tslib_es6.__extends(Topic, _super);
-    function Topic(topicName, consumerClass) {
-        var _this = _super.call(this, 'topics/' + topicName) || this;
-        _this.subscriptions = new Map();
-        var props = Object.getOwnPropertyNames(consumerClass.prototype);
-        _this.constructor = Object.assign({ prototype: { subscribe: _this.subscribe, unsubscribe: _this.unsubscribe } }, _this.constructor);
-        props
-            .filter(function (k) { return k !== 'constructor'; })
-            .forEach(function (k) {
-            _this.constructor.prototype[k] = function () {
-                var args = [];
-                for (var _i = 0; _i < arguments.length; _i++) {
-                    args[_i] = arguments[_i];
-                }
-                _this.subscriptions.forEach(function (actor) { return actor[k].apply(actor, args); });
-            };
-        });
-        return _this;
-    }
-    Topic.for = function (system, name, consumerClass) {
-        return system.actorOf(Topic, [name, consumerClass]);
-    };
-    Topic.prototype.subscribe = function (t) {
-        var id = uuid$2.default();
-        this.subscriptions.set(id, t);
-        return id;
-    };
-    Topic.prototype.unsubscribe = function (id) {
-        this.subscriptions.delete(id);
-    };
-    return Topic;
-}(actor$2.default));
-exports.default = Topic;
-});
-
-unwrapExports(topic$2);
-
-var dist$1 = createCommonjsModule(function (module, exports) {
-/**
- * Copyright (c) 2018-present, wind-js
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-
-exports.Actor = actor$2.default;
-
-exports.ActorSystem = actorSystem$2.default;
-
-exports.ActorSystemConfigurationBuilder = actorSystemConfigurationBuilder$2.default;
-
-exports.Topic = topic$2.default;
-
-exports.ActorMessage = actorMessage$2.default;
-});
-
-unwrapExports(dist$1);
-var dist_1$1 = dist$1.Actor;
-var dist_2$1 = dist$1.ActorSystem;
-var dist_3$1 = dist$1.ActorSystemConfigurationBuilder;
-var dist_4$1 = dist$1.Topic;
-var dist_5$1 = dist$1.ActorMessage;
-
 var vueActor = createCommonjsModule(function (module, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 
@@ -1602,7 +878,7 @@ var VueActor = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     return VueActor;
-}(dist$1.Actor));
+}(dist.Actor));
 exports.VueActor = VueActor;
 });
 
@@ -12667,14 +11943,21 @@ var vueRenderer = createCommonjsModule(function (module, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 
 var vue_1 = tslib_es6.__importDefault(vue_common);
+var toObject = function (arr) {
+    return arr.reduce(function (prev, cur) {
+        prev[cur.name] = cur.fn;
+        return prev;
+    }, {});
+};
 var VueRenderer = /** @class */ (function () {
     function VueRenderer() {
     }
     VueRenderer.prototype.onInitialize = function (actor) {
-        // tslint:disable-next-line:no-unused-expression
-        new vue_1.default({
+        var methods = Object.keys(actor.constructor.prototype).filter(function (key) { return typeof actor.constructor.prototype[key] === 'function'; });
+        actor._vue = new vue_1.default({
             data: actor,
             el: actor.id,
+            methods: toObject(methods.map(function (method) { return ({ name: method, fn: actor[method] }); })),
             template: actor.template,
         });
     };
@@ -12695,17 +11978,22 @@ exports.VueRenderer = VueRenderer;
 unwrapExports(vueRenderer);
 var vueRenderer_1 = vueRenderer.VueRenderer;
 
-var dist$2 = createCommonjsModule(function (module, exports) {
+var dist$1 = createCommonjsModule(function (module, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
+
+exports.ActorSystem = dist.ActorSystem;
+exports.ActorSystemConfigurationBuilder = dist.ActorSystemConfigurationBuilder;
 
 exports.VueActor = vueActor.VueActor;
 
 exports.VueRenderer = vueRenderer.VueRenderer;
 });
 
-unwrapExports(dist$2);
-var dist_1$2 = dist$2.VueActor;
-var dist_2$2 = dist$2.VueRenderer;
+unwrapExports(dist$1);
+var dist_1$1 = dist$1.ActorSystem;
+var dist_2$1 = dist$1.ActorSystemConfigurationBuilder;
+var dist_3$1 = dist$1.VueActor;
+var dist_4$1 = dist$1.VueRenderer;
 
 var AppActor = /** @class */ (function (_super) {
     __extends(AppActor, _super);
@@ -12713,18 +12001,19 @@ var AppActor = /** @class */ (function (_super) {
         var _this = _super.call(this, "#app") || this;
         _this.counter = 0;
         _this.template = "<div>counter: {{counter}}</div>";
-        _this.schedule(1000, _this.incrementCounter, []);
+        _this.template = '<button v-on:click="addOne">{{counter}}</button>';
+        _this.counter = 0;
         return _this;
     }
-    AppActor.prototype.incrementCounter = function () {
+    AppActor.prototype.addOne = function () {
         this.counter++;
     };
     return AppActor;
-}(dist_1$2));
+}(dist_3$1));
 
 window.onload = function () {
     var system = dist_2.for(dist_3.define()
-        .withMaterializer(new dist_2$2())
+        .withMaterializers([new dist_4$1()])
         .done());
     system.actorOf(AppActor, []);
 };

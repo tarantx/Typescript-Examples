@@ -5,7 +5,7 @@ import { VueRenderer } from 'tarant-vue';
 
 window.onload = () => {
   const system = ActorSystem.for(ActorSystemConfigurationBuilder.define()
-  .withMaterializer(new VueRenderer())
+  .withMaterializers([new VueRenderer()])
   .done())  
   system.actorOf(AppActor, [])
 }
