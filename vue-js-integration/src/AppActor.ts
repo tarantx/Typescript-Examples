@@ -1,4 +1,5 @@
-import { VueActor } from "tarant-vue";
+import { VueActor, ActorSystem } from "tarant-vue";
+import {LocalStoragePersisted} from 'tarant-local-storage'
 
 export default class AppActor extends VueActor {
   constructor() {
@@ -7,7 +8,15 @@ export default class AppActor extends VueActor {
   }
 
   addOne() {
-      this.counter++
+    this.counter++
+  }
+
+  static async instance(system: ActorSystem) {
+      try {
+          return await system.actorFor('#app')
+      } catch (_) {
+          return system.actorOf(AppActor, [])
+      }
   }
 
   private counter = 0; 

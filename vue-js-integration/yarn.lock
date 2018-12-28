@@ -3701,10 +3701,17 @@ tar@^4:
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
 
-tarant-vue@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/tarant-vue/-/tarant-vue-0.1.0.tgz#45ed5b86b3f94e94e9135bca37c52c2411127bd4"
-  integrity sha512-tM3wEa8nWD9FhKZoU0TrB+OCuBV+a/1zUtWG++NUqIlKUC1N5dP4jr/sjOwLwyP69WwcVisCVcGZZMwWYu6bpA==
+tarant-local-storage@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/tarant-local-storage/-/tarant-local-storage-1.2.0.tgz#c8f72a2c2dd90627ca19ba6701404e708c761d40"
+  integrity sha512-WCXB7Dc27I6xRzFFgEKZiKs7mrmexL6/VnEw+nbxBDwzmLVNhmFtuQgqUL+3JZMS8GsXr5wDyT8zSmBRI9X3dQ==
+  dependencies:
+    tarant "2.3.3"
+
+tarant-vue@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/tarant-vue/-/tarant-vue-0.2.0.tgz#3e69ea2d652eabf5663f33b41f5a2a8f937d23a5"
+  integrity sha512-GRbS5RMYCm5y5didbwSLN7EjGweXghwsLBITAQGf2knzV0kmp+zu6mcQUZwhDKjG33kfelPd6WANe4qfAiCHcw==
   dependencies:
     tarant "2.3.2"
     vue "2.5.21"
@@ -3713,6 +3720,13 @@ tarant@2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/tarant/-/tarant-2.3.2.tgz#1070881b5649685da587554dba9c4d37a7ba09d3"
   integrity sha512-ypLwBMxgvS7KsskmgrgwNYPdeLUNUKEP2+DUDLoJ+LoA/3Q9DGFH2E69AQYZSqK3erJ79NjBscVT/UdVm2EaHQ==
+  dependencies:
+    tslib "1.9.3"
+
+tarant@2.3.3:
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/tarant/-/tarant-2.3.3.tgz#9dfb7cdfa299dde357f937a5970092f2e830357e"
+  integrity sha512-gstGtNNdUF+ywtxN65MhHvYHYLA1EphwVTPmsE6+d7wurnvgbGbO9Hgs7vxOylgKeGt4Z8ZDVMVkpjetAYaXqA==
   dependencies:
     tslib "1.9.3"
 
