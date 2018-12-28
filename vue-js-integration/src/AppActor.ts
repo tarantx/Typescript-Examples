@@ -22,3 +22,4 @@ export default class AppActor extends VueActor {
   private counter = 0; 
   readonly template : string = '<button v-on:click="addOne">{{counter}}</button>'
 }
+LocalStoragePersisted("AppActor", AppActor)
