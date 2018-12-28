@@ -6,4 +6,5 @@ How to run:
 yarn install
 yarn build
 
-open dist/index.html```
+open dist/index.html
+```
