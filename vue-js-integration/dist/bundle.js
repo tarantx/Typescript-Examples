@@ -12746,12 +12746,14 @@ unwrapExports(dist$3);
 var dist_1$3 = dist$3.LocalStoragePersisted;
 var dist_2$3 = dist$3.LocalStorageRepository;
 
+var ID = "#app";
 var AppActor = /** @class */ (function (_super) {
     __extends(AppActor, _super);
     function AppActor() {
-        var _this = _super.call(this, "#app") || this;
+        var _this = _super.call(this, ID) || this;
         _this.counter = 0;
         _this.template = '<button v-on:click="addOne">{{counter}}</button>';
+        _this.counter = 0;
         return _this;
     }
     AppActor.prototype.addOne = function () {
@@ -12764,7 +12766,7 @@ var AppActor = /** @class */ (function (_super) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, system.actorFor('#app')];
+                        return [4 /*yield*/, system.actorFor(ID)];
                     case 1: return [2 /*return*/, _a.sent()];
                     case 2:
                         _1 = _a.sent();
