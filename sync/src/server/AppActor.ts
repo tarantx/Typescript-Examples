@@ -13,7 +13,8 @@ export default class AppActor extends Actor {
 
   toJson(){
       return {
-        counter: this.counter
+            type:"AppActor",
+            counter: this.counter
       }
   }
 
