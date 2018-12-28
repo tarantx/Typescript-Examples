@@ -14,11 +14,7 @@ export default class AppActor extends VueActor {
   }
 
   static async instance(system: ActorSystem) {
-      try {
-          return await system.actorFor(ID)
-      } catch (_) {
-          return system.actorOf(AppActor, [])
-      }
+      return await system.resolveOrNew(ID, AppActor, [])
   }
 
   private counter = 0; 

@@ -3730,6 +3730,13 @@ tarant@2.3.3:
   dependencies:
     tslib "1.9.3"
 
+tarant@2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/tarant/-/tarant-2.4.1.tgz#55d4ed065ce8f0969e07fc95031ee9638113fd1f"
+  integrity sha512-XWeKYtZjzJ88++PRXKAnx+ZlBtiS2Gvwglm8wASSj3QxIUB4y+fdles869b9+cmEXSDJuL8YbMSgdYhDE4qw/Q==
+  dependencies:
+    tslib "1.9.3"
+
 test-exclude@^4.2.1:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/test-exclude/-/test-exclude-4.2.3.tgz#a9a5e64474e4398339245a0a769ad7c2f4a97c20"
