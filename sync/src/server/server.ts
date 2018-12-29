@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express'
 import { ActorSystem, ActorSystemConfigurationBuilder, Actor } from 'tarant';
 
 import bodyParser from "body-parser";
-import AppActor from './AppActor';
+import AppActor from '../domain/AppActor';
 import { IUpdatable } from '../modules/sync/IUpdatable';
 
 
