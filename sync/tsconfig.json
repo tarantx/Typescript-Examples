@@ -3,7 +3,7 @@
       "esModuleInterop": true,
       "target": "es6",
       "module": "commonjs",
-      "declaration": false,
+      "declaration": false,        
       "outDir": "./dist",
       "strict": true,
       "importHelpers": true

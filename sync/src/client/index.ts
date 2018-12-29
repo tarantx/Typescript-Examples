@@ -1,20 +1,14 @@
 
-import { ActorSystem, ActorSystemConfigurationBuilder, Actor } from 'tarant'
-import AppActor from './AppActor';
+import { ActorSystem, ActorSystemConfigurationBuilder } from 'tarant'
+import AppActor from '../domain/AppActor';
 import { VueRenderer } from 'tarant-vue';
-import IResolver from 'tarant/dist/actor-system/resolver/resolver';
-import axios from 'axios';
+import { RemoteResolver } from '../modules/sync/RemoteResolver';
 
-class RemoteResolver implements IResolver {
-  resolveActorById(id: string): Promise<Actor>{
-   return axios.get(`/sync/${id}`)
-   .then(result => Object.assign(eval(`new ${result.data.type}("${id}")`),result.data));
-  }
-} 
+const remote = new RemoteResolver()
 
 const system = ActorSystem.for(ActorSystemConfigurationBuilder.define()
-.withMaterializers([new VueRenderer()])
-.withResolvers([new RemoteResolver()])
+.withMaterializers([new VueRenderer(), remote])
+.withResolvers([remote])
 .done()) 
 
 window.onload = () => {
