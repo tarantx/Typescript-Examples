@@ -17,7 +17,7 @@
     "axios": "0.18.0",
     "body-parser": "1.18.3",
     "express": "4.16.4",
-    "tarant": "2.5.7",
+    "tarant": "2.5.8",
     "tarant-vue": "0.3.0",
     "vue": "2.5.21"
   },

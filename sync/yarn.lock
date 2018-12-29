@@ -4383,10 +4383,10 @@ tarant@2.5.6:
   dependencies:
     tslib "1.9.3"
 
-tarant@2.5.7:
-  version "2.5.7"
-  resolved "https://registry.yarnpkg.com/tarant/-/tarant-2.5.7.tgz#e9c543eac2b982fab1e5b148d2711fb0a82f9b3d"
-  integrity sha512-OmKciZhaqN1vPInkzfsrBi2rGMpq6AkQdeJ1W3K2SIonJVU57tKSl8iZ66QC6n4cIVMcH6BrGvNv9xSfAhTP0A==
+tarant@2.5.8:
+  version "2.5.8"
+  resolved "https://registry.yarnpkg.com/tarant/-/tarant-2.5.8.tgz#37e5a914fb596664b1ed8309a3a206587a2416d5"
+  integrity sha512-MG9XPJQ3omkBRNOspJD7beny8BjgcO/OgdQycrlZKTALbuEBRcWRvmX/TorL6lrU+tt5PIVgvrUGrPdmoUqL4Q==
   dependencies:
     tslib "1.9.3"
 
