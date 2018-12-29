@@ -1,8 +1,8 @@
-import { VueActor } from "tarant-vue";
 import { IExportable } from "../modules/sync/IExportable";
 import { IUpdatable } from "../modules/sync/IUpdatable";
+import { Actor } from 'tarant';
 
-export default class AppActor extends VueActor implements IExportable, IUpdatable {
+export default class AppActor extends Actor implements IExportable, IUpdatable {
   constructor(name: string) {
       super(name)
   }

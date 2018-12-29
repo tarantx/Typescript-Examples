@@ -1,8 +1,8 @@
 
 import { ActorSystem, ActorSystemConfigurationBuilder } from 'tarant'
-import AppActor from '../domain/AppActor';
 import { VueRenderer } from 'tarant-vue';
 import { RemoteResolver } from '../modules/sync/RemoteResolver';
+import AppActor from './AppActor';
 
 const remote = new RemoteResolver()
 
@@ -12,6 +12,7 @@ const system = ActorSystem.for(ActorSystemConfigurationBuilder.define()
 .done()) 
 
 window.onload = () => {
-  self.AppActor = AppActor
-  system.actorFor("app")
+    system
+    .actorFor("app")
+    .catch(() => system.actorOf(AppActor, ["app"]))
 }

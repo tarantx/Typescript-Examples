@@ -1,7 +1,9 @@
 import express, { Request, Response } from 'express'
 import { ActorSystem, ActorSystemConfigurationBuilder, Actor } from 'tarant';
-import AppActor from '../domain/AppActor';
+
 import bodyParser from "body-parser";
+import AppActor from './AppActor';
+import { IUpdatable } from '../modules/sync/IUpdatable';
 
 
 const app: express.Application = express()
@@ -13,25 +15,26 @@ app.use(bodyParser.json())
 const system = ActorSystem.for(ActorSystemConfigurationBuilder.define()
 .done())  
 
-system.actorOf(AppActor, ["app"])
-
 app.get('/pull/:id', async (req: Request, res: Response) => {
     try {
         const actor = await system.actorFor(req.params.id) as any
-        res.send(await actor.toJson())
+        res.json(await actor.toJson())
     } catch (error) {
-        console.log(error)
+        res.sendStatus(400)
     }
 })
-
+const map: any = {
+    AppActor
+}
 app.post('/push/:id', async (req: Request, res: Response) => {
-    try {
-        let actor = await system.actorFor(req.params.id) as any
-        actor.updateFrom(req.body)
-        res.status(200).send()
+    let actor: IUpdatable
+    try {        
+        actor = await system.actorFor(req.params.id) as any
     } catch (error) {
-        console.log(error)
+        actor = await system.actorOf(map[req.body.type],[req.params.id]) as any
     }
+    actor.updateFrom(req.body)
+    res.sendStatus(200)
 })
 
 app.listen(port, () => {
