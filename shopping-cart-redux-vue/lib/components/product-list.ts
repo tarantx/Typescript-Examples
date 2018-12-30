@@ -1,12 +1,12 @@
 import { VueActor } from 'tarant-vue'
 import { StoreProtocol, StoreState } from '../store/store';
 import { Topic } from 'tarant';
-import { ActionsProtocol } from '../actions';
+import { ActionsProtocol, Actions } from '../actions';
 
 type ProductInfo = { title: string, price: number, stock: number }
 
 export default class ProductList extends VueActor {
-    private readonly actions: ActionsProtocol;
+    private readonly actions: Actions;
     public readonly template: string = `
     <div>
         <hr />
@@ -19,7 +19,7 @@ export default class ProductList extends VueActor {
     `
     private products: Array<ProductInfo>
 
-    constructor(store: Topic<StoreProtocol>, actions: ActionsProtocol) {
+    constructor(store: Topic<StoreProtocol>, actions: Actions) {
         super("product-list")
         this.products = []
         this.actions = actions
@@ -34,6 +34,6 @@ export default class ProductList extends VueActor {
     }
 
     public onAddToCart(product: ProductInfo): void {
-        this.actions.onAddToCart(product.title)
+        this.actions.addToCart(product.title)
     }
 }

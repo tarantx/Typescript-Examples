@@ -1,7 +1,7 @@
 import { VueActor } from 'tarant-vue'
 import { StoreProtocol, StoreState } from '../store/store';
 import { Topic } from 'tarant';
-import { ActionsProtocol } from '../actions';
+import { ActionsProtocol, Actions } from '../actions';
 
 type ShoppingCartItem = { title: string, price: number, quantity: number }
 
@@ -22,12 +22,12 @@ export default class ShoppingCart extends VueActor {
         <button @click="checkout">Checkout</button>
     </div>`
 
-    private readonly actions: ActionsProtocol;
+    private readonly actions: Actions;
     private shoppingCart: Array<ShoppingCartItem>
     private totalPrice: number
     private isCartEmpty: boolean
 
-    constructor(store: Topic<StoreProtocol>, actions: ActionsProtocol) {
+    constructor(store: Topic<StoreProtocol>, actions: Actions) {
         super("shopping-cart")
         this.shoppingCart = []
         this.actions = actions

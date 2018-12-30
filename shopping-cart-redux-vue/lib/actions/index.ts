@@ -19,6 +19,10 @@ export class Actions extends Actor {
     addToCart(productTitle: string): void {
         this.topic.onAddToCart(productTitle)
     }
+
+    checkout(): void {
+        this.topic.checkout()
+    }
 }
 
 export class ActionsProtocol extends Actor {

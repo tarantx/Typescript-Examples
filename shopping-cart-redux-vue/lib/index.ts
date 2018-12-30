@@ -24,8 +24,8 @@ window.onload = () => {
   const shoppingCartReducer = system.actorOf(ShoppingCartReducer, [actionsProtocol, store])
   const productsReducer = system.actorOf(ProductReducer, [actionsProtocol, store])
   
-  const productList = system.actorOf(ProductList, [storeProtocol, actionsProtocol])
-  const shoppingCart = system.actorOf(ShoppingCart, [storeProtocol, actionsProtocol])
+  const productList = system.actorOf(ProductList, [storeProtocol, actions])
+  const shoppingCart = system.actorOf(ShoppingCart, [storeProtocol, actions])
 
   actions.getAll()
 }
