@@ -21,7 +21,7 @@ export class Actions extends Actor {
     }
 
     checkout(): void {
-        this.topic.checkout()
+        this.topic.onCheckout()
     }
 }
 
@@ -32,5 +32,5 @@ export class ActionsProtocol extends Actor {
     
     onRetrievedAllProducts(products: IProduct[]): void {}
     onAddToCart(title: string): void {}
-    checkout(): void {}
+    onCheckout(): void {}
 }

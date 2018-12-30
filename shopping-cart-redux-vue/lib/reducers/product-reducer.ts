@@ -38,7 +38,7 @@ export default class ProductReducer extends Actor {
         this.store.propagateState('products', this.state)
     }
 
-    checkout() {
+    onCheckout() {
         return
     }
 }

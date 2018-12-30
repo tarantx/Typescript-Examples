@@ -13,7 +13,7 @@ describe('Actions', () => {
     beforeEach(() => {
         system = ActorSystem.default()
         protocol = {
-            checkout: jest.fn(),
+            onCheckout: jest.fn(),
             onAddToCart: jest.fn(),
             onRetrievedAllProducts: jest.fn()
         } as unknown as any
@@ -32,5 +32,17 @@ describe('Actions', () => {
 
         expect(shop.retrieveAllProducts).toHaveBeenCalled()
         expect(protocol.onRetrievedAllProducts).toHaveBeenCalledWith({})
+    })
+
+    test('that addToCart propagates the item to add', () => {
+        const item = 'xxx'
+
+        actions.addToCart(item)
+        protocol.onAddToCart(item)
+    })
+
+    test('that checkout propagates the checkout', () => {
+        actions.checkout()
+        protocol.onCheckout()
     })
 })

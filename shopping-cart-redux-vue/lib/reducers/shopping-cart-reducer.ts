@@ -44,7 +44,7 @@ export default class ShoppingCartReducer extends Actor {
         this.store.propagateState('shoppingCart', this.state)
     }
 
-    checkout() {
+    onCheckout() {
         this.state.products = []
         this.state.totalPrice = 0
         this.store.propagateState('shoppingCart', this.state)
