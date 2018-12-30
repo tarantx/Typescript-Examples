@@ -34,15 +34,15 @@ describe('Actions', () => {
         expect(protocol.onRetrievedAllProducts).toHaveBeenCalledWith({})
     })
 
-    test('that addToCart propagates the item to add', () => {
+    test('that addToCart propagates the item to add', async () => {
         const item = 'xxx'
 
-        actions.addToCart(item)
-        protocol.onAddToCart(item)
+        await actions.addToCart(item)
+        expect(protocol.onAddToCart).toHaveBeenCalledWith(item)
     })
 
-    test('that checkout propagates the checkout', () => {
-        actions.checkout()
-        protocol.onCheckout()
+    test('that checkout propagates the checkout', async () => {
+        await actions.checkout()
+        expect(protocol.onCheckout).toHaveBeenCalled()
     })
 })
