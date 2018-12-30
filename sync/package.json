@@ -17,8 +17,9 @@
     "axios": "0.18.0",
     "body-parser": "1.18.3",
     "express": "4.16.4",
-    "tarant": "2.6.1",
-    "tarant-vue": "0.3.0",
+    "tarant": "2.6.2",
+    "tarant-remote-sync": "https://github.com/tarantx/tarant-remote-sync.git",
+    "tarant-vue": "0.3.2",
     "vue": "2.5.21"
   },
   "devDependencies": {

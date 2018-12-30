@@ -3,6 +3,7 @@ import { IExportable } from "../modules/sync/IExportable";
 import { IUpdatable } from "../modules/sync/IUpdatable";
 
 export default class AppActor extends VueActor implements IExportable, IUpdatable {
+
   constructor(name: string) {
       super(name)
   }
@@ -18,10 +19,10 @@ export default class AppActor extends VueActor implements IExportable, IUpdatabl
         }
     }
 
-    updateFrom({counter}: any) {
+    updateFrom({ counter }: any): void {
         this.counter = counter
     }
 
-    public counter = 1; 
+    private counter = 1; 
     readonly template : string = '<div id="app"><button v-on:click="addOne">{{counter}}</button></div>'
 }
