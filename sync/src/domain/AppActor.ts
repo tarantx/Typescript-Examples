@@ -1,6 +1,6 @@
 import { VueActor } from "tarant-vue";
-import { IExportable } from "../modules/sync/IExportable";
-import { IUpdatable } from "../modules/sync/IUpdatable";
+import { IExportable } from "tarant-remote-sync/dist/IExportable";
+import { IUpdatable } from "tarant-remote-sync/dist/IUpdatable";
 
 export default class AppActor extends VueActor implements IExportable, IUpdatable {
 
