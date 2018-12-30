@@ -2,8 +2,7 @@ import express, { Request, Response } from 'express'
 import { ActorSystem, ActorSystemConfigurationBuilder, Actor } from 'tarant';
 
 import bodyParser from "body-parser";
-import createSyncRouter from "./tarant-express-router";
-import AppActor from "../domain/AppActor";
+import SyncController from "tarant-sync-router-express";
 import { config } from "../AppConfig"
 
 
@@ -14,7 +13,7 @@ const system = ActorSystem.for(ActorSystemConfigurationBuilder.define().done())
 
 app.use(express.static('dist'))
 app.use(bodyParser.json())
-app.use(createSyncRouter(system, config))
+app.use(SyncController(system, config))
 
 app.listen(port, () => {
     console.log(`Listening at http://localhost:${port}/`)

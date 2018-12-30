@@ -47,6 +47,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/cookiejar@*":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@types/cookiejar/-/cookiejar-2.1.0.tgz#4b7daf2c51696cfc70b942c11690528229d1a1ce"
+  integrity sha512-EIjmpvnHj+T4nMcKwHwxZKUfDmphIKJc2qnEMhSoOvr1lYEQpuRKRz8orWr//krYIIArS/KGGLfL2YGVUYXmIA==
+
 "@types/estree@0.0.39":
   version "0.0.39"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"
@@ -107,6 +112,21 @@
   dependencies:
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
+
+"@types/superagent@*":
+  version "3.8.5"
+  resolved "https://registry.yarnpkg.com/@types/superagent/-/superagent-3.8.5.tgz#a8eb8ec5bce0234e50d6b8bee1941b5bb5686e2d"
+  integrity sha512-h7dQyzEGQFY3Ya8pIu0fxcWaMWC2DDSKR78gHrh6GVnXUqXo/+93wd4RObXA13rKp4ETyym3yq2A0AxROx9AxQ==
+  dependencies:
+    "@types/cookiejar" "*"
+    "@types/node" "*"
+
+"@types/supertest@^2.0.7":
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/@types/supertest/-/supertest-2.0.7.tgz#46ff6508075cd4519736be060f0d6331a5c8ca7b"
+  integrity sha512-GibTh4OTkal71btYe2fpZP/rVHIPnnUsYphEaoywVHo+mo2a/LhlOFkIm5wdN0H0DA0Hx8x+tKgCYMD9elHu5w==
+  dependencies:
+    "@types/superagent" "*"
 
 "@vue/component-compiler-utils@^2.1.0":
   version "2.3.1"
@@ -4368,12 +4388,23 @@ tar@^4:
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
 
-"tarant-remote-sync@https://github.com/tarantx/tarant-remote-sync.git":
-  version "0.3.1"
-  resolved "https://github.com/tarantx/tarant-remote-sync.git#35890ad8f4f8c967b702729639932ff00549d438"
+tarant-sync-client@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/tarant-sync-client/-/tarant-sync-client-0.2.0.tgz#399f4fdd7ee6098f875abe88187b5c0189e562d3"
+  integrity sha512-WvFoRo1LMIk9VLc0Sp2SGO2UiSMjgFnItfuX6mwIFxwnNmM/O55v2c2j8RxDNJB8iK0HxI2cMy9j2mVQUD11eg==
   dependencies:
     axios "0.18.0"
     tarant "2.6.1"
+
+tarant-sync-router-express@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/tarant-sync-router-express/-/tarant-sync-router-express-0.1.1.tgz#294ded62300ac327a1fdae27493bb7d3970d16a4"
+  integrity sha512-yp9tNNefGWLn/zpWMw/ZDwMX0JVTbvIsSG+eU9Yi7gr8PXZQrVKLPfYgn3Whym4IDujr6DPQ6+zrVPlKlHL3bA==
+  dependencies:
+    "@types/supertest" "^2.0.7"
+    express "4.16.4"
+    tarant "2.6.2"
+    tslib "1.9.3"
 
 tarant-vue@0.3.2:
   version "0.3.2"
