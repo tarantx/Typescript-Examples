@@ -18,3 +18,13 @@ yarn build
 
 open dist/index.html
 ```
+
+Showcase gif
+------------
+![gif-showcase.gif](./gif-showcase.gif)
+
+* Getting the shop information is delayed for 500ms
+* Adding an item to a cart is delayed for 250ms
+* When an item is added to the shopping cart, the vue component is delayed for 1s, so the product list will update quicker
+
+**Fun fact:** Try to add more than the limit of items, you'll see that it's not possible (even if actors are really slow), because actors are transactional and receive messages one by one.
