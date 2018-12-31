@@ -10,7 +10,6 @@ const ALL_PRODUCTS: Array<IProduct> = [
 
 describe('ProductReducer', () => {
     let system: ActorSystem
-    let protocol: ActionsProtocol
     let store: Store
     let actions: Topic<ActionsProtocol>
     let productReducer: ProductReducer
