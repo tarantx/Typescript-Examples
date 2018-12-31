@@ -56,4 +56,25 @@ describe('ShoppingCartReducer', () => {
                "totalPrice": 50,
              })
     })
+
+    test('that checkout clears the product list', async () => {
+        await shoppingCartReducer.onRetrievedAllProducts(ALL_PRODUCTS)
+        await shoppingCartReducer.onAddToCart(ALL_PRODUCTS[0].title)
+        await shoppingCartReducer.onCheckout()
+
+        expect(store.propagateState).toHaveBeenCalledWith('shoppingCart', {
+               "products": [],
+               "stock": new Map([[
+                 "Something", {
+                   "product": {
+                     "price": 50,
+                     "quantity": 2,
+                     "title": "Something",
+                   },
+                   "stock": 1,
+                 },
+                ]]),
+               "totalPrice": 0,
+             })
+    })
 })
