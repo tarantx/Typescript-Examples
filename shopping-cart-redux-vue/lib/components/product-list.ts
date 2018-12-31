@@ -1,5 +1,5 @@
 import { VueActor } from 'tarant-vue'
-import { StoreProtocol, StoreState } from '../store/store';
+import { StoreProtocol, StoreState } from '../store';
 import { Topic } from 'tarant';
 import { ActionsProtocol, Actions } from '../actions';
 

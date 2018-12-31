@@ -1,7 +1,7 @@
 import { Actor, Topic } from 'tarant'
 import { IProduct } from '../domain/shop';
 import { ActionsProtocol } from '../actions';
-import { Store } from '../store/store';
+import { Store } from '../store';
 
 export type ProductReducerState = {
     stock: Map<string, { product: IProduct, stock: number }>,

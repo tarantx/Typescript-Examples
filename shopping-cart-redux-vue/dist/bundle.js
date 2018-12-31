@@ -13063,6 +13063,9 @@ var Actions = /** @class */ (function (_super) {
     Actions.prototype.addToCart = function (productTitle) {
         this.topic.onAddToCart(productTitle);
     };
+    Actions.prototype.checkout = function () {
+        this.topic.onCheckout();
+    };
     return Actions;
 }(dist_1));
 var ActionsProtocol = /** @class */ (function (_super) {
@@ -13072,7 +13075,7 @@ var ActionsProtocol = /** @class */ (function (_super) {
     }
     ActionsProtocol.prototype.onRetrievedAllProducts = function (products) { };
     ActionsProtocol.prototype.onAddToCart = function (title) { };
-    ActionsProtocol.prototype.checkout = function () { };
+    ActionsProtocol.prototype.onCheckout = function () { };
     return ActionsProtocol;
 }(dist_1));
 
@@ -13136,7 +13139,7 @@ var ShoppingCartReducer = /** @class */ (function (_super) {
         allProducts.forEach(function (product) { return _this.state.stock.set(product.title, { product: product, stock: product.quantity }); });
         this.store.propagateState('shoppingCart', this.state);
     };
-    ShoppingCartReducer.prototype.checkout = function () {
+    ShoppingCartReducer.prototype.onCheckout = function () {
         this.state.products = [];
         this.state.totalPrice = 0;
         this.store.propagateState('shoppingCart', this.state);
@@ -13161,11 +13164,11 @@ var ShoppingCart = /** @class */ (function (_super) {
     __extends(ShoppingCart, _super);
     function ShoppingCart(store, actions) {
         var _this = _super.call(this, "shopping-cart") || this;
-        _this.template = "\n    <div>\n        <hr />\n        <h2>Your cart</h2>\n        <div v-if=\"isCartEmpty === true\">\n            <i>Please add some products to cart.</i>\n        </div>\n        <div v-else>\n            <div v-for=\"item in shoppingCart\">\n                <p><b>{{ item.title }}</b> - ${{ item.price }} - <i> x {{ item.quantity }} </i></p>\n            </div>\n        </div>\n        <p>Total: ${{ totalPrice }}</p>\n        <button @click=\"checkout\">Checkout</button>\n    </div>";
+        _this.template = "\n    <div>\n        <hr />\n        <h2>Your cart</h2>\n        <div v-if=\"carEmpty === true\">\n            <i>Please add some products to cart.</i>\n        </div>\n        <div v-else>\n            <div v-for=\"item in shoppingCart\">\n                <p><b>{{ item.title }}</b> - ${{ item.price }} - <i> x {{ item.quantity }} </i></p>\n            </div>\n        </div>\n        <p>Total: ${{ totalPrice }}</p>\n        <button :disabled=\"carEmpty\" @click=\"checkout\">Checkout</button>\n    </div>";
         _this.shoppingCart = [];
         _this.actions = actions;
         _this.totalPrice = 0;
-        _this.isCartEmpty = true;
+        _this.carEmpty = true;
         _this.subscribeToTopic(store);
         return _this;
     }
@@ -13179,7 +13182,7 @@ var ShoppingCart = /** @class */ (function (_super) {
             });
         });
         this.totalPrice = state.shoppingCart.totalPrice;
-        this.isCartEmpty = this.shoppingCart.length === 0;
+        this.carEmpty = this.shoppingCart.length === 0;
     };
     ShoppingCart.prototype.checkout = function () {
         this.actions.checkout();
@@ -13213,7 +13216,7 @@ var ProductReducer = /** @class */ (function (_super) {
         allProducts.forEach(function (product) { return _this.state.stock.set(product.title, { product: product, stock: product.quantity }); });
         this.store.propagateState('products', this.state);
     };
-    ProductReducer.prototype.checkout = function () {
+    ProductReducer.prototype.onCheckout = function () {
         return;
     };
     return ProductReducer;
@@ -13263,7 +13266,7 @@ var ProductList = /** @class */ (function (_super) {
         });
     };
     ProductList.prototype.onAddToCart = function (product) {
-        this.actions.onAddToCart(product.title);
+        this.actions.addToCart(product.title);
     };
     return ProductList;
 }(dist_3$2));
@@ -13279,7 +13282,7 @@ window.onload = function () {
     var actions = system.actorOf(Actions, [actionsProtocol, shop]);
     var shoppingCartReducer = system.actorOf(ShoppingCartReducer, [actionsProtocol, store]);
     var productsReducer = system.actorOf(ProductReducer, [actionsProtocol, store]);
-    var productList = system.actorOf(ProductList, [storeProtocol, actionsProtocol]);
-    var shoppingCart = system.actorOf(ShoppingCart, [storeProtocol, actionsProtocol]);
+    var productList = system.actorOf(ProductList, [storeProtocol, actions]);
+    var shoppingCart = system.actorOf(ShoppingCart, [storeProtocol, actions]);
     actions.getAll();
 };

@@ -4,7 +4,7 @@ import { ActionsProtocol, Actions } from './actions';
 import { Shop } from './domain/shop';
 import ShoppingCartReducer from './reducers/shopping-cart-reducer';
 import ShoppingCart from './components/shopping-cart';
-import { StoreProtocol, Store } from './store/store';
+import { StoreProtocol, Store } from './store';
 import ProductReducer from './reducers/product-reducer';
 import ProductList from './components/product-list';
 

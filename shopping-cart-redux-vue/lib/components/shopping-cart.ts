@@ -1,5 +1,5 @@
 import { VueActor } from 'tarant-vue'
-import { StoreProtocol, StoreState } from '../store/store';
+import { StoreProtocol, StoreState } from '../store';
 import { Topic } from 'tarant';
 import { ActionsProtocol, Actions } from '../actions';
 
@@ -10,7 +10,7 @@ export default class ShoppingCart extends VueActor {
     <div>
         <hr />
         <h2>Your cart</h2>
-        <div v-if="isCartEmpty === true">
+        <div v-if="carEmpty === true">
             <i>Please add some products to cart.</i>
         </div>
         <div v-else>
@@ -19,20 +19,20 @@ export default class ShoppingCart extends VueActor {
             </div>
         </div>
         <p>Total: \${{ totalPrice }}</p>
-        <button @click="checkout">Checkout</button>
+        <button :disabled="carEmpty" @click="checkout">Checkout</button>
     </div>`
 
     private readonly actions: Actions;
     private shoppingCart: Array<ShoppingCartItem>
     private totalPrice: number
-    private isCartEmpty: boolean
+    private carEmpty: boolean
 
     constructor(store: Topic<StoreProtocol>, actions: Actions) {
         super("shopping-cart")
         this.shoppingCart = []
         this.actions = actions
         this.totalPrice = 0
-        this.isCartEmpty = true
+        this.carEmpty = true
 
         this.subscribeToTopic(store)
     }
@@ -45,7 +45,7 @@ export default class ShoppingCart extends VueActor {
         }))
 
         this.totalPrice = state.shoppingCart.totalPrice
-        this.isCartEmpty = this.shoppingCart.length === 0
+        this.carEmpty = this.shoppingCart.length === 0
     }
 
     public checkout(): void {
