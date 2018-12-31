@@ -18,7 +18,8 @@ describe('Actions', () => {
             onRetrievedAllProducts: jest.fn()
         } as unknown as any
         shop = {
-            retrieveAllProducts: jest.fn().mockReturnValue(Promise.resolve(ALL_PRODUCTS))
+            retrieveAllProducts: jest.fn().mockReturnValue(Promise.resolve(ALL_PRODUCTS)),
+            getProduct: jest.fn((x: string) => Promise.resolve({ title: x }))
         } as unknown as any
         actions = system.actorOf(Actions, [protocol, shop])
     })
