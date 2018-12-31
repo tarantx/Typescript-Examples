@@ -2,6 +2,7 @@ import { VueActor } from 'tarant-vue'
 import { StoreProtocol, StoreState } from '../store';
 import { Topic } from 'tarant';
 import { ActionsProtocol, Actions } from '../actions';
+import simulateLoad from '../infrastructure/simulate-load';
 
 type ShoppingCartItem = { title: string, price: number, quantity: number }
 
@@ -37,7 +38,9 @@ export default class ShoppingCart extends VueActor {
         this.subscribeToTopic(store)
     }
 
-    public onStoreChanged(state: StoreState): void {
+    public async onStoreChanged(state: StoreState): Promise<void> {
+        await simulateLoad(1000)
+
         this.shoppingCart = state.shoppingCart.products.map(({product, count}) => ({ 
             title: product.title,
             price: product.price,

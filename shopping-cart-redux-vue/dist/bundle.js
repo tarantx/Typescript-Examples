@@ -13061,7 +13061,18 @@ var Actions = /** @class */ (function (_super) {
         });
     };
     Actions.prototype.addToCart = function (productTitle) {
-        this.topic.onAddToCart(productTitle);
+        return __awaiter(this, void 0, Promise, function () {
+            var product;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.shop.getProduct(productTitle)];
+                    case 1:
+                        product = _a.sent();
+                        this.topic.onAddToCart(product.title);
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     Actions.prototype.checkout = function () {
         this.topic.onCheckout();
@@ -13080,12 +13091,13 @@ var ActionsProtocol = /** @class */ (function (_super) {
 }(dist_1));
 
 var _this = undefined;
-var simulateLoad = function () { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+var simulateLoad = (function (timeMs) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
     switch (_a.label) {
-        case 0: return [4 /*yield*/, new Promise(function (r) { return setTimeout(r, 10); })];
+        case 0: return [4 /*yield*/, new Promise(function (r) { return setTimeout(r, timeMs); })];
         case 1: return [2 /*return*/, _a.sent()];
     }
-}); }); };
+}); }); });
+
 var KNOWN_PRODUCTS = [
     { title: 'iPad 4 Mini', quantity: 2, price: 500.01 },
     { title: 'H&M T-Shirt White', quantity: 10, price: 10.99 },
@@ -13100,10 +13112,22 @@ var Shop = /** @class */ (function (_super) {
         return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, simulateLoad()];
+                    case 0: return [4 /*yield*/, simulateLoad(500)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/, KNOWN_PRODUCTS];
+                }
+            });
+        });
+    };
+    Shop.prototype.getProduct = function (title) {
+        return __awaiter(this, void 0, Promise, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, simulateLoad(250)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/, KNOWN_PRODUCTS.filter(function (p) { return p.title === title; })[0]];
                 }
             });
         });
@@ -13173,16 +13197,26 @@ var ShoppingCart = /** @class */ (function (_super) {
         return _this;
     }
     ShoppingCart.prototype.onStoreChanged = function (state) {
-        this.shoppingCart = state.shoppingCart.products.map(function (_a) {
-            var product = _a.product, count = _a.count;
-            return ({
-                title: product.title,
-                price: product.price,
-                quantity: count
+        return __awaiter(this, void 0, Promise, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, simulateLoad(1000)];
+                    case 1:
+                        _a.sent();
+                        this.shoppingCart = state.shoppingCart.products.map(function (_a) {
+                            var product = _a.product, count = _a.count;
+                            return ({
+                                title: product.title,
+                                price: product.price,
+                                quantity: count
+                            });
+                        });
+                        this.totalPrice = state.shoppingCart.totalPrice;
+                        this.carEmpty = this.shoppingCart.length === 0;
+                        return [2 /*return*/];
+                }
             });
         });
-        this.totalPrice = state.shoppingCart.totalPrice;
-        this.carEmpty = this.shoppingCart.length === 0;
     };
     ShoppingCart.prototype.checkout = function () {
         this.actions.checkout();

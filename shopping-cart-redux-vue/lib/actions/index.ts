@@ -16,8 +16,9 @@ export class Actions extends Actor {
         this.topic.onRetrievedAllProducts(allProducts)
     }
 
-    addToCart(productTitle: string): void {
-        this.topic.onAddToCart(productTitle)
+    async addToCart(productTitle: string): Promise<void> {
+        const product = await this.shop.getProduct(productTitle)
+        this.topic.onAddToCart(product.title)
     }
 
     checkout(): void {

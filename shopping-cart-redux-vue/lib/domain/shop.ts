@@ -1,6 +1,5 @@
 import { Actor } from 'tarant'
-
-const simulateLoad = async () => await new Promise(r => setTimeout(r, 10))
+import simulateLoad from '../infrastructure/simulate-load'
 
 export interface IProduct {
     quantity: number
@@ -20,7 +19,12 @@ export class Shop extends Actor {
     }
 
     async retrieveAllProducts(): Promise<IProduct[]> {
-        await simulateLoad()
+        await simulateLoad(500)
         return KNOWN_PRODUCTS
+    }
+
+    async getProduct(title: string): Promise<IProduct> {
+        await simulateLoad(250)
+        return KNOWN_PRODUCTS.filter(p => p.title === title)[0]
     }
 }

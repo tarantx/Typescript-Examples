@@ -12,5 +12,15 @@
     <h1>Redux-like Shopping Cart Example with tarant-vue</h1>
     <div id="product-list"></div>
     <div id="shopping-cart"></div>
+    <hr />
+    <h3>Behaviour</h3>
+    <ul>
+        <li>Getting the shop information is delayed for 500ms</li>
+        <li>Adding an item to a cart is delayed for 250ms</li>
+        <li>When an item is added to the shopping cart, the vue component is delayed for 1s, so the product list will update quicker</li>
+    </ul>
+    <b>Fun fact:</b> <span>Try to add more than the limit of items, you'll see that it's not possible (even if actors are really slow), 
+        because actors are transactional and receive messages one by one.
+    </span>
 </body>
 </html>
