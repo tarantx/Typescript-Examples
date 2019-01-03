@@ -13213,5 +13213,5 @@ window.onload = function () {
     var shoppingCart = system.actorOf(ShoppingCart, [stock, shoppingCartProtocol]);
     var productListComponent = system.actorOf(ProductListComponent, [shoppingCart, stockProtocol]);
     var shoppingCartComponent = system.actorOf(ShoppingCartComponent, [shoppingCart, shoppingCartProtocol]);
-    setTimeout(function () { return stock.loadProducts(); }, 0);
+    stock.loadProducts();
 };

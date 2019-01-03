@@ -19,5 +19,5 @@ window.onload = () => {
   const productListComponent = system.actorOf(ProductListComponent, [shoppingCart, stockProtocol])
   const shoppingCartComponent = system.actorOf(ShoppingCartComponent, [shoppingCart, shoppingCartProtocol])
 
-  setTimeout(() => stock.loadProducts(), 0)
+  stock.loadProducts()
 }
