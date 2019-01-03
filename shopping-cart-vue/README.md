@@ -51,10 +51,6 @@ yarn build
 open dist/index.html
 ```
 
-Showcase gif
-------------
-![gif-showcase.gif](./gif-showcase.gif)
-
 * Getting the shop information is delayed for 500ms
 * Adding an item to a cart is delayed for 250ms
 * When an item is added to the shopping cart, the vue component is delayed for 1s, so the product list will update quicker
