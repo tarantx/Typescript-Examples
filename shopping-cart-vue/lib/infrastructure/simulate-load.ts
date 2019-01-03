@@ -1,0 +1,1 @@
+export default async (timeMs: number) => await new Promise(r => setTimeout(r, timeMs))
