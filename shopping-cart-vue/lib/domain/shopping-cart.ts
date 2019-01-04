@@ -9,7 +9,7 @@ export interface ICartItem {
 }
 
 export class ShoppingCart extends Actor {
-    private items: ICartItem[]
+    private readonly items: Map<string, ICartItem>
     private readonly stock: Stock
     private readonly protocol: ShoppingCartProtocol
 
@@ -17,7 +17,7 @@ export class ShoppingCart extends Actor {
         super()
 
         this.stock = stock
-        this.items = []
+        this.items = new Map()
         this.protocol = protocol
     }
 
@@ -25,24 +25,19 @@ export class ShoppingCart extends Actor {
         await simulateLoad(250)
         
         const product = await this.stock.reserveProduct(desiredProduct)
-        const itemsByTitle = this.items.filter(i => i.title === product.title)
+        const item = this.items.get(product.title) || { title: product.title, price: product.price, quantity: 0 }
+        item.quantity++
+        this.items.set(item.title, item)
 
-        let item: ICartItem
-        if (itemsByTitle.length === 1) {
-            item = itemsByTitle[0]
-        } else {
-            item = { title: product.title, price: product.price, quantity: 0 }
-            this.items.push(item)
-        }
-
-        item.quantity++        
-        const totalPrice = this.items.map(item => item.price * item.quantity).reduce((a, b) => a + b, 0)
-        this.protocol.onCartChanged(this.items, totalPrice)
+        const itemArray = Array.from(this.items.values())
+        const totalPrice = itemArray.map(item => item.price * item.quantity).reduce((a, b) => a + b, 0)
+   
+        this.protocol.onCartChanged(itemArray, totalPrice)
     }
 
     checkout() {
-        this.items = []
-        this.protocol.onCartChanged(this.items, 0)
+        this.items.clear()
+        this.protocol.onCartChanged([], 0)
     }
 }
 

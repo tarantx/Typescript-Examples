@@ -13055,7 +13055,7 @@ var Stock = /** @class */ (function (_super) {
     __extends(Stock, _super);
     function Stock(protocol) {
         var _this = _super.call(this) || this;
-        _this.products = KNOWN_PRODUCTS;
+        _this.stock = new Map(KNOWN_PRODUCTS.map(function (product) { return [product.title, product]; }));
         _this.protocol = protocol;
         return _this;
     }
@@ -13066,7 +13066,7 @@ var Stock = /** @class */ (function (_super) {
                     case 0: return [4 /*yield*/, simulateLoad(500)];
                     case 1:
                         _a.sent();
-                        this.protocol.onStockChanged(this.products);
+                        this.protocol.onStockChanged(Array.from(this.stock.values()));
                         return [2 /*return*/];
                 }
             });
@@ -13074,13 +13074,12 @@ var Stock = /** @class */ (function (_super) {
     };
     Stock.prototype.reserveProduct = function (product) {
         return __awaiter(this, void 0, Promise, function () {
-            var foundProducts, foundProduct;
+            var foundProduct;
             return __generator(this, function (_a) {
-                foundProducts = this.products.filter(function (p) { return p.title === product.title; });
-                if (foundProducts.length !== 1) {
+                foundProduct = this.stock.get(product.title);
+                if (foundProduct === undefined) {
                     throw 'Non existing product title';
                 }
-                foundProduct = foundProducts[0];
                 if (foundProduct.stock <= 0) {
                     throw 'There is not enough stock for product';
                 }
@@ -13105,13 +13104,13 @@ var ShoppingCart = /** @class */ (function (_super) {
     function ShoppingCart(stock, protocol) {
         var _this = _super.call(this) || this;
         _this.stock = stock;
-        _this.items = [];
+        _this.items = new Map();
         _this.protocol = protocol;
         return _this;
     }
     ShoppingCart.prototype.addProduct = function (desiredProduct) {
         return __awaiter(this, void 0, Promise, function () {
-            var product, itemsByTitle, item, totalPrice;
+            var product, item, itemArray, totalPrice;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, simulateLoad(250)];
@@ -13120,25 +13119,20 @@ var ShoppingCart = /** @class */ (function (_super) {
                         return [4 /*yield*/, this.stock.reserveProduct(desiredProduct)];
                     case 2:
                         product = _a.sent();
-                        itemsByTitle = this.items.filter(function (i) { return i.title === product.title; });
-                        if (itemsByTitle.length === 1) {
-                            item = itemsByTitle[0];
-                        }
-                        else {
-                            item = { title: product.title, price: product.price, quantity: 0 };
-                            this.items.push(item);
-                        }
+                        item = this.items.get(product.title) || { title: product.title, price: product.price, quantity: 0 };
                         item.quantity++;
-                        totalPrice = this.items.map(function (item) { return item.price * item.quantity; }).reduce(function (a, b) { return a + b; }, 0);
-                        this.protocol.onCartChanged(this.items, totalPrice);
+                        this.items.set(item.title, item);
+                        itemArray = Array.from(this.items.values());
+                        totalPrice = itemArray.map(function (item) { return item.price * item.quantity; }).reduce(function (a, b) { return a + b; }, 0);
+                        this.protocol.onCartChanged(itemArray, totalPrice);
                         return [2 /*return*/];
                 }
             });
         });
     };
     ShoppingCart.prototype.checkout = function () {
-        this.items = [];
-        this.protocol.onCartChanged(this.items, 0);
+        this.items.clear();
+        this.protocol.onCartChanged([], 0);
     };
     return ShoppingCart;
 }(dist_1));
@@ -13190,7 +13184,7 @@ var ShoppingCartComponent = /** @class */ (function (_super) {
                     case 1:
                         _a.sent();
                         this.shoppingCartItems = items;
-                        this.totalPrice = totalPrice;
+                        this.totalPrice = +totalPrice.toFixed(2);
                         this.cartEmpty = this.shoppingCartItems.length === 0;
                         return [2 /*return*/];
                 }

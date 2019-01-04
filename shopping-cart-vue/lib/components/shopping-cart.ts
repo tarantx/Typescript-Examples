@@ -38,7 +38,7 @@ export class ShoppingCartComponent extends VueActor {
         await simulateLoad(250)
 
         this.shoppingCartItems = items
-        this.totalPrice = totalPrice
+        this.totalPrice = +totalPrice.toFixed(2)
         this.cartEmpty = this.shoppingCartItems.length === 0    
     }
 
