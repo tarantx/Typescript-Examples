@@ -13155,7 +13155,7 @@ var ProductListComponent = /** @class */ (function (_super) {
     __extends(ProductListComponent, _super);
     function ProductListComponent(shoppingCart, stockProtocol) {
         var _this = _super.call(this, "product-list") || this;
-        _this.template = "\n    <div>\n        <hr />\n        <h2>Products</h2>\n        <div v-for=\"product in products\">\n            <p><b>{{ product.title }}</b> - ${{ product.price }} - <i> x {{ product.stock }} </i></p>\n            <p><button :disabled=\"product.stock === 0\" @click=\"onAddToCart(product)\">Add to cart</button></p>\n        </div>\n    </div>\n    ";
+        _this.template = "\n    <div>\n        <hr />\n        <h2>Products</h2>\n        <div v-for=\"product in products\">\n            <p><b>{{ product.title }}</b> - ${{ product.price }} - <i> x {{ product.stock }} </i></p>\n            <p>\n                <button v-if=\"product.stock === 0\" disabled>Sold Out</button>\n                <button v-else @click=\"onAddToCart(product)\">Add to cart</button>\n            </p>\n        </div>\n    </div>\n    ";
         _this.products = [];
         _this.shoppingCart = shoppingCart;
         _this.subscribeToTopic(stockProtocol);

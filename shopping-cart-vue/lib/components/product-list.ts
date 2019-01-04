@@ -11,7 +11,10 @@ export class ProductListComponent extends VueActor {
         <h2>Products</h2>
         <div v-for="product in products">
             <p><b>{{ product.title }}</b> - \${{ product.price }} - <i> x {{ product.stock }} </i></p>
-            <p><button :disabled="product.stock === 0" @click="onAddToCart(product)">Add to cart</button></p>
+            <p>
+                <button v-if="product.stock === 0" disabled>Sold Out</button>
+                <button v-else @click="onAddToCart(product)">Add to cart</button>
+            </p>
         </div>
     </div>
     `
