@@ -8,7 +8,7 @@ export interface IProduct {
     title: string
 }
 
-const KNOWN_PRODUCTS: ReadonlyArray<IProduct> = [
+export const KNOWN_PRODUCTS: ReadonlyArray<IProduct> = [
     { title: 'iPad 4 Mini', stock: 2, price: 500.01 },
     { title: 'H&M T-Shirt White', stock: 10, price: 10.99 },
     { title: 'Charli XCX - Sucker CD', stock: 5, price: 19.99 },
