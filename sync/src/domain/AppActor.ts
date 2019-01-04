@@ -14,6 +14,7 @@ export default class AppActor extends VueActor implements IUpdatable, IExportabl
 
   toJson(){
         return {
+            id: this.id,
             type:"AppActor",
             counter: this.counter
         }

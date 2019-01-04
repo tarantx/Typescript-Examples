@@ -1,56 +1,72 @@
-import * as diskAdapter from 'sails-disk';
-import Waterline, { Config } from "waterline";
+import Waterline from 'waterline';
 import { IMaterializer, IResolver, Actor, ActorMessage } from 'tarant';
 import { IActor } from 'tarant/dist/actor-system/actor';
 
-var config : Config = {
-    adapters: {
-      'disk': diskAdapter
-    },
-    connections: {
-        default: {
-            adapter: 'memory'
-        }
-    }
-  };
-type ActorModel = { identity: string; primaryKey: string; schema: boolean; attributes: { id: string; type: string; }; }
-
 export default class PersistMaterializer implements IMaterializer, IResolver {
-    private waterline: Waterline.Waterline;
-    actorModel: ActorModel;
-    
+    private actorModel: any;
+    private types: any;
 
-    constructor() {
-        this.actorModel = {
-            identity: 'Actor',
-            primaryKey: 'id',
-            schema: false,
-            attributes: {
-              id: 'string',
-              type: 'string'
-            }
-        };
-        this.waterline = new Waterline();
-        this.waterline.loadCollection(Waterline.Collection.extend(ActorModel));
-        this.waterline.initialize(config, console.log)
+    static create(config: any, types: any) : Promise<PersistMaterializer> {
+        return new Promise((resolve, rejects) => {
+            const actorModel =  Waterline.Collection.extend({
+                identity: 'actor',
+                datastore: 'default',
+                primaryKey: 'id',
+                schema: false,
+                attributes: {
+                  id: { type:'string', required: true },
+                  type: {type:'string'}
+                }
+            });
+            const waterline = new Waterline();
+            waterline.registerModel(actorModel);
+            waterline.initialize(config, (err: any, ontology: any) => {
+                if(err)
+                    rejects(err)
+                else
+                    resolve(new PersistMaterializer(ontology.collections.actor, types))
+            })
+        })
     }
 
 
-    onInitialize(actor: Actor): void{
-        //
+     protected constructor(actorModel : any, types: any ) {
+        this.actorModel = actorModel
+        this.types = types
+    }
+
+    private async createOrUpdate(actor: Actor){
+        let record = await (actor as any).toJson()
+        
+        console.log("from json: " + record.id)
+        if(await this.actorModel.findOne({id : record.id }))
+            await this.actorModel.updateOne({id : record.id }).set(record);
+        else
+            await this.actorModel.create(record);
+    }
+
+    async onInitialize(actor: Actor): Promise<void> {
+        await this.createOrUpdate(actor)
     }
     onBeforeMessage(actor: Actor, message: ActorMessage): void{
         //
     }
-    onAfterMessage(actor: Actor, message: ActorMessage): void{
-        throw "not Implemented";
-        this.waterline.
+    async onAfterMessage(actor: Actor, message: ActorMessage): Promise<void> {
+        await this.createOrUpdate(actor)
     }
     onError(actor: Actor, message: ActorMessage, error: any): void{
         //
     }
 
-    resolveActorById(id: string): Promise<IActor>{
-        throw "not Implemented";
+    async resolveActorById(id: string): Promise<IActor>{
+        console.log("id to search: " + id)
+        let result = await this.actorModel.findOne({ id });
+        console.log("found: " + result)
+        if(!result)
+            return Promise.reject("not found")
+        const actor = new this.types[result.type](id)
+        actor.updateFrom(result)
+        return Promise.resolve(actor)
+
     }
 }
