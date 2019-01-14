@@ -8,7 +8,7 @@ const config : any  = {
           pull: "/pull", 
           push: "/push", 
       },
-      ActorTypes: { AppActor }
+      actorTypes: { AppActor }
 }
 
 export { config }
