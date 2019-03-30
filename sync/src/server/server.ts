@@ -20,14 +20,14 @@ var dbConfig = {
 
 
 async function startServer() {
-    const persister = await PersistMaterializer.create(dbConfig, { AppActor })
+    // const persister = await PersistMaterializer.create(dbConfig, { AppActor })
 
     const app: express.Application = express()
-    const port: number = 3002
+    const port: number = 3000
 
     const system : any = ActorSystem.for(ActorSystemConfigurationBuilder.define()
-        .withMaterializers([persister])
-        .withResolvers([persister])
+        // .withMaterializers([persister])
+        // .withResolvers([persister])
         .done())  
 
     app.use(express.static('dist'))

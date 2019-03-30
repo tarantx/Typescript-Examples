@@ -1,4 +1,3 @@
-
 import { ActorSystem, ActorSystemConfigurationBuilder } from 'tarant'
 import { VueRenderer } from 'tarant-vue';
 import AppActor from '../domain/AppActor';
@@ -15,5 +14,9 @@ const system = ActorSystem.for(ActorSystemConfigurationBuilder.define()
 window.onload = () => {
     system
     .actorFor("app")
-    .catch(() => system.actorOf(AppActor, ["app"]))
+    .catch(() => Promise.resolve(system.actorOf(AppActor, ["app"])))
+    .then(actor  => {
+        console.log(actor);
+    })
 }
+

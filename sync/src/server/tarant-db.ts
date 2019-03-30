@@ -59,9 +59,7 @@ export default class PersistMaterializer implements IMaterializer, IResolver {
     }
 
     async resolveActorById(id: string): Promise<IActor>{
-        console.log("id to search: " + id)
-        let result = await this.actorModel.findOne({ id });
-        console.log("found: " + result)
+        let result = await this.actorModel.findOne({ id })
         if(!result)
             return Promise.reject("not found")
         const actor = new this.types[result.type](id)

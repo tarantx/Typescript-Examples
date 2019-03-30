@@ -11,6 +11,6 @@ const config = {
         pull: "/pull",
         push: "/push",
     },
-    ActorTypes: { AppActor: AppActor_1.default }
+    actorTypes: { AppActor: AppActor_1.default }
 };
 exports.config = config;
