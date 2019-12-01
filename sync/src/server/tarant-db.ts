@@ -38,7 +38,6 @@ export default class PersistMaterializer implements IMaterializer, IResolver {
     private async createOrUpdate(actor: Actor){
         let record = await (actor as any).toJson()
         
-        console.log("from json: " + record.id)
         if(await this.actorModel.findOne({id : record.id }))
             await this.actorModel.updateOne({id : record.id }).set(record);
         else

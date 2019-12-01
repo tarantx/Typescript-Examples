@@ -1,4 +1,33 @@
 import { Actor } from 'tarant';
+interface Constructor<T extends Actor> {
+    new (...args: any[]): T;
+}
+
+// current problems are the change of name of the prototype will make it imposible to resolve
+function decorate<T extends Actor>(SuperClass: Constructor<T>, ...decorators: any[]): Constructor<T> {
+    
+    return <Constructor<T>>class extends (<Constructor<Actor>>SuperClass) {
+        constructor(params : any) {
+            super(params);
+            decorators.forEach(decorator => {
+                const instance = new decorator(this)
+                let allNames: string[] = Object.getOwnPropertyNames(Object.getPrototypeOf(instance)).filter((name: string) => name !=='constructor')
+                allNames.forEach((name: string) =>{
+                    if(!(this as any).constructor.prototype[name])
+                        (this as any).constructor.prototype[name] = (...parameters: any[]) => instance[name](...parameters)
+                })
+            })
+          }
+    }
+}
+
+class decorator<T extends Actor> {
+    protected readonly actor: T;
+
+    constructor(actor: T) {
+        this.actor = actor
+    }
+}
 
 class AppActor extends Actor {
 
@@ -11,40 +40,6 @@ class AppActor extends Actor {
   }
 
    public counter = 1; 
-}
-
-interface Constructor<T extends Actor> {
-    new (...args: any[]): T;
-}
-
-
-// current problems are the change of name of the prototype will make it imposible to resolve
-function decorate<T extends Actor>(SuperClass: Constructor<T>, ...decorators: any[]): Constructor<T> {
-    
-    return <Constructor<T>>class extends (<Constructor<Actor>>SuperClass) {
-        constructor(params : any) {
-            super(params);
-            decorators.forEach(decorator => 
-                (Object as any)
-                    .entries(decorator.prototype)
-                    .filter(([name]: [string]) => name !=='constructor')
-                    .forEach((...element: any[]) => {
-                        const instance = new decorator(this)
-                        if(!(this as any).constructor.prototype[element[0][0]])
-                            (this as any).constructor.prototype[element[0][0]] = (...parameters: any[]) => instance[element[0][0]](parameters)
-                })
-
-            )
-          }
-    }
-}
-
-class decorator<T> {
-    protected readonly actor: T;
-
-    constructor(actor: T) {
-        this.actor = actor
-    }
 }
 
 class VueDecorated extends decorator<AppActor> {
@@ -80,6 +75,10 @@ class Serialization extends decorator<AppActor> {
         this.actor.counter = counter
     }
 }
+
+
+
+
 
 const DecoratedActor = decorate(AppActor, VueDecorated, Serialization)
 export default DecoratedActor

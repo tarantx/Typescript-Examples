@@ -15,8 +15,5 @@ window.onload = () => {
     system
     .actorFor("app")
     .catch(() => Promise.resolve(system.actorOf(AppActor, ["app"])))
-    .then(actor  => {
-        console.log(actor);
-    })
 }
 
