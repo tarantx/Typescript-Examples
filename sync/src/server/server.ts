@@ -4,22 +4,26 @@ import * as diskAdapter from 'sails-disk';
 import bodyParser from "body-parser";
 import SyncController from "tarant-sync-router-express";
 import { config } from "../AppConfig"
-import { PersistResolverMaterializer } from 'tarant-db-persist';
+import PersistMaterializer from './tarant-db';
 import AppActor from '../domain/AppActor';
 
-const dbConfig = {
-    adapter: { 
-        type : diskAdapter
+var dbConfig = {
+    adapters: {
+      'disk': diskAdapter
     },
-    actorTypes: { AppActor }
+    datastores: {
+        default: {
+          adapter: 'disk'
+        }
+    }
   };
 
 
 async function startServer() {
-    const persister = await PersistResolverMaterializer.create(dbConfig)
+    const persister = await PersistMaterializer.create(dbConfig, { AppActor })
 
     const app: express.Application = express()
-    const port: number = 3002
+    const port: number = 3000
 
     const system : any = ActorSystem.for(ActorSystemConfigurationBuilder.define()
         .withMaterializers([persister])
