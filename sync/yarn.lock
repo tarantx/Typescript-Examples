@@ -6084,12 +6084,12 @@ tar@^4:
     safe-buffer "^5.1.2"
     yallist "^3.0.3"
 
-tarant-db-persist@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/tarant-db-persist/-/tarant-db-persist-0.2.0.tgz#6fcf2396e5d715bfecbc8ee373893b9220a7fca8"
-  integrity sha512-m9jBUlOR210WxYfvb9CogCKojq0id/dzkW4wMJjgAiPZ8Y4dR4bqma5tQE/i8K9eF8IAJtIFhLsbFFMlXwat6Q==
+tarant-db-persist@0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/tarant-db-persist/-/tarant-db-persist-0.3.0.tgz#91d654b3d05b1ac736e1004470dbd67e206f3a61"
+  integrity sha512-WsCeKA7j85/wemDFbHqUqVpbcQ8B1yb+tJZwEBaRlA78DEi/NDvGWvRbrOL5Jf8NdoXPJa8Pp105IrP2hQA/bw==
   dependencies:
-    tarant "2.6.4"
+    tarant "2.7.2"
     waterline "0.13.6"
 
 tarant-sync-client@0.3.2:
@@ -6117,13 +6117,6 @@ tarant-vue@0.3.6:
   dependencies:
     tarant "2.7.2"
     vue "2.6.10"
-
-tarant@2.6.4:
-  version "2.6.4"
-  resolved "https://registry.yarnpkg.com/tarant/-/tarant-2.6.4.tgz#323bb7c7c32e2a75b1a7472dbd53098f7571a266"
-  integrity sha512-znJrCLxLsp7XCkzLxftykg5kVV5OIvxIGRDxiZ5g4QL3ItfY5UDnThbP/98ahvScBnlTm2i0JdwDoz508/4DmQ==
-  dependencies:
-    tslib "1.9.3"
 
 tarant@2.7.2:
   version "2.7.2"
@@ -6305,11 +6298,6 @@ tslib@1.10.0, tslib@^1.8.0, tslib@^1.8.1:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
-
-tslib@1.9.3:
-  version "1.9.3"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
-  integrity sha512-4krF8scpejhaOgqzBEcGM7yDIEfi0/8+8zDRZhNZZ2kjmHJ4hv3zCbQWxoJGz1iw5U0Jl0nma13xzHXcncMavQ==
 
 tslint-config-prettier@1.18.0:
   version "1.18.0"

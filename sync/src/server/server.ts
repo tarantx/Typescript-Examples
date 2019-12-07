@@ -3,8 +3,8 @@ import { ActorSystem, ActorSystemConfigurationBuilder, Actor } from 'tarant';
 import * as diskAdapter from 'sails-disk';
 import bodyParser from "body-parser";
 import SyncController from "tarant-sync-router-express";
+import { PersistResolverMaterializer } from "tarant-db-persist";
 import { config } from "../AppConfig"
-import PersistMaterializer from './tarant-db';
 import AppActor from '../domain/AppActor';
 
 var dbConfig = {
@@ -20,7 +20,7 @@ var dbConfig = {
 
 
 async function startServer() {
-    const persister = await PersistMaterializer.create(dbConfig, { AppActor })
+    const persister = await PersistResolverMaterializer.create(dbConfig, { AppActor })
 
     const app: express.Application = express()
     const port: number = 3000
