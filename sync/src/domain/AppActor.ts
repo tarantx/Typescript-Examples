@@ -1,14 +1,9 @@
 import { Actor } from 'tarant';
+import { Decorator } from 'tarant-utils'
+
 
 interface Constructor<T extends Actor> {
     new (...args: any[]): T;
-}
-class decorator<T extends Actor> {
-    protected readonly actor: T;
-
-    constructor(actor: T) {
-        this.actor = actor
-    }
 }
 
 function decorate<T extends Actor>(SuperClass: Constructor<T>, ...decorators: any[]): Constructor<T> {
@@ -40,7 +35,7 @@ class AppActor extends Actor {
    public counter = 1; 
 }
 
-class VueDecorated extends decorator<AppActor> {
+class VueDecorated extends Decorator<AppActor> {
     constructor(actor: AppActor) {
         super(actor)
     }
@@ -56,7 +51,7 @@ class VueDecorated extends decorator<AppActor> {
     }
 }
 
-class Serialization extends decorator<AppActor> {
+class Serialization extends Decorator<AppActor> {
     constructor(actor: AppActor) {
         super(actor)
     }
