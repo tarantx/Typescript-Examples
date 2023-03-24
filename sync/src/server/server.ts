@@ -9,7 +9,10 @@ import AppActor from '../domain/AppActor';
 
 var dbConfig = {
     adapters: {
-      'disk': diskAdapter
+      'disk': diskAdapter,
+      settings: {
+        inMemoryOnly: true
+      },
     },
     datastores: {
         default: {
@@ -26,8 +29,8 @@ async function startServer() {
     const port: number = 3000
 
     const system : any = ActorSystem.for(ActorSystemConfigurationBuilder.define()
-        .withMaterializers([persister])
-        .withResolvers([persister])
+        .withMaterializers([persister as any])
+        .withResolvers([persister as any])
         .done())  
 
     app.use(express.static('dist'))

@@ -1,7 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tarant_1 = require("tarant");
-const tarant_utils_1 = require("tarant-utils");
+class Decorator {
+    constructor(actor) {
+        this.actor = actor;
+    }
+}
 function decorate(SuperClass, ...decorators) {
     return class extends SuperClass {
         constructor(params) {
@@ -26,7 +30,7 @@ class AppActor extends tarant_1.Actor {
         this.counter++;
     }
 }
-class VueDecorated extends tarant_utils_1.Decorator {
+class VueDecorated extends Decorator {
     constructor(actor) {
         super(actor);
     }
@@ -38,7 +42,7 @@ class VueDecorated extends tarant_utils_1.Decorator {
         return this;
     }
 }
-class Serialization extends tarant_utils_1.Decorator {
+class Serialization extends Decorator {
     constructor(actor) {
         super(actor);
     }
@@ -53,5 +57,5 @@ class Serialization extends tarant_utils_1.Decorator {
         this.actor.counter = counter;
     }
 }
-const DecoratedActor = decorate(AppActor, VueDecorated, Serialization);
+const DecoratedActor = decorate(AppActor, Serialization, VueDecorated);
 exports.default = DecoratedActor;

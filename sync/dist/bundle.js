@@ -13090,53 +13090,12 @@ var dist_1$1 = dist$1.ActorSystem;
 var dist_2$1 = dist$1.ActorSystemConfigurationBuilder;
 var dist_3$1 = dist$1.VueRenderer;
 
-var decorate_1 = createCommonjsModule(function (module, exports) {
-Object.defineProperty(exports, "__esModule", { value: true });
-function decorate(SuperClass, ...decorators) {
-    return class extends SuperClass {
-        constructor(params) {
-            super(params);
-            decorators.forEach(decorator => {
-                const instance = new decorator(this);
-                const allNames = Object.getOwnPropertyNames(Object.getPrototypeOf(instance)).filter((name) => name !== 'constructor');
-                allNames.forEach((name) => {
-                    if (!this.constructor.prototype[name]) {
-                        this.constructor.prototype[name] = (...parameters) => instance[name](...parameters);
-                    }
-                });
-            });
-        }
-    };
-}
-exports.default = decorate;
-});
-
-unwrapExports(decorate_1);
-
-var decorator = createCommonjsModule(function (module, exports) {
-Object.defineProperty(exports, "__esModule", { value: true });
-class Decorator {
-    constructor(actor) {
+var Decorator = /** @class */ (function () {
+    function Decorator(actor) {
         this.actor = actor;
     }
-}
-exports.default = Decorator;
-});
-
-unwrapExports(decorator);
-
-var dist$2 = createCommonjsModule(function (module, exports) {
-Object.defineProperty(exports, "__esModule", { value: true });
-
-exports.decorate = decorate_1.default;
-
-exports.Decorator = decorator.default;
-});
-
-unwrapExports(dist$2);
-var dist_1$2 = dist$2.decorate;
-var dist_2$2 = dist$2.Decorator;
-
+    return Decorator;
+}());
 function decorate(SuperClass) {
     var decorators = [];
     for (var _i = 1; _i < arguments.length; _i++) {
@@ -13190,7 +13149,7 @@ var VueDecorated = /** @class */ (function (_super) {
         return this;
     };
     return VueDecorated;
-}(dist_2$2));
+}(Decorator));
 var Serialization = /** @class */ (function (_super) {
     __extends(Serialization, _super);
     function Serialization(actor) {
@@ -13208,8 +13167,8 @@ var Serialization = /** @class */ (function (_super) {
         this.actor.counter = counter;
     };
     return Serialization;
-}(dist_2$2));
-var DecoratedActor = decorate(AppActor, VueDecorated, Serialization);
+}(Decorator));
+var DecoratedActor = decorate(AppActor, Serialization, VueDecorated);
 
 var bind$2 = function bind(fn, thisArg) {
   return function wrap() {
@@ -14658,14 +14617,14 @@ exports.RemoteResolverMaterializer = RemoteResolverMaterializer;
 unwrapExports(RemoteResolverMaterializer_1);
 var RemoteResolverMaterializer_2 = RemoteResolverMaterializer_1.RemoteResolverMaterializer;
 
-var dist$3 = createCommonjsModule(function (module, exports) {
+var dist$2 = createCommonjsModule(function (module, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 
 exports.RemoteResolverMaterializer = RemoteResolverMaterializer_1.RemoteResolverMaterializer;
 });
 
-unwrapExports(dist$3);
-var dist_1$3 = dist$3.RemoteResolverMaterializer;
+unwrapExports(dist$2);
+var dist_1$2 = dist$2.RemoteResolverMaterializer;
 
 var config$1 = {
     sync: {
@@ -14679,7 +14638,7 @@ var config$1 = {
     actorTypes: { AppActor: DecoratedActor }
 };
 
-var remote = new dist_1$3(config$1);
+var remote = new dist_1$2(config$1);
 var system = dist_2.for(dist_3.define()
     .withMaterializers([new dist_3$1(), remote])
     .withResolvers([remote])

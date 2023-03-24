@@ -11,7 +11,10 @@ const AppConfig_1 = require("../AppConfig");
 const AppActor_1 = tslib_1.__importDefault(require("../domain/AppActor"));
 var dbConfig = {
     adapters: {
-        'disk': diskAdapter
+        'disk': diskAdapter,
+        settings: {
+            inMemoryOnly: true
+        },
     },
     datastores: {
         default: {

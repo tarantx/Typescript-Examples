@@ -1,11 +1,16 @@
 import { Actor } from 'tarant';
-import { Decorator } from 'tarant-utils'
 
+class Decorator<T extends Actor> {
+    protected readonly actor: T;
+    constructor(actor: T){
+        this.actor = actor;
+    }
+}
 
 interface Constructor<T extends Actor> {
     new (...args: any[]): T;
 }
-
+ 
 function decorate<T extends Actor>(SuperClass: Constructor<T>, ...decorators: any[]): Constructor<T> {
     return <Constructor<T>>class extends (<Constructor<Actor>>SuperClass) {
         constructor(params : any) {
@@ -69,5 +74,5 @@ class Serialization extends Decorator<AppActor> {
     }
 }
 
-const DecoratedActor = decorate(AppActor, VueDecorated, Serialization)
+const DecoratedActor = decorate(AppActor, Serialization, VueDecorated)
 export default DecoratedActor
