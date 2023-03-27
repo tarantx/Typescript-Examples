@@ -3,10 +3,11 @@
       "esModuleInterop": true,
       "target": "es6",
       "module": "commonjs",
-      "declaration": false,        
+      "declaration": false,
       "outDir": "./dist",
       "strict": true,
-      "importHelpers": true
+      "importHelpers": true,
+      "jsx": "react-jsx"
     },
     "include": ["src/server/**/*", "ambient.d.ts"],
     "exclude": ["node_modules", "**/*.spec.ts"]

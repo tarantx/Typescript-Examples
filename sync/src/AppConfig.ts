@@ -1,8 +1,8 @@
-import AppActor from "./domain/AppActor";
+import AppActor from "./domain";
 const config : any  = {
     sync: {
         active: true,
-        delay: 1000
+        delay: 10000
     },
       paths: {
           pull: "/pull", 

@@ -1,19 +1,17 @@
 import { ActorSystem, ActorSystemConfigurationBuilder } from 'tarant'
-import { VueRenderer } from 'tarant-vue';
-import AppActor from '../domain/AppActor';
-import { RemoteResolverMaterializer } from "tarant-sync-client";
-import { config } from "../AppConfig";
+import { RemoteResolverMaterializer } from "tarant-sync-client"
+import { config } from "../AppConfig"
+import AppActor from "../domain"
+import { ReactRenderer } from './ReactRenderer'
 
 const remote = new RemoteResolverMaterializer(config)
 
 const system = ActorSystem.for(ActorSystemConfigurationBuilder.define()
-.withMaterializers([new VueRenderer(), remote])
-.withResolvers([remote])
+.withMaterializers([new ReactRenderer(), remote as any])
+.withResolvers([remote as any])
 .done()) 
 
-window.onload = () => {
-    system
+system
     .actorFor("app")
     .catch(() => Promise.resolve(system.actorOf(AppActor, ["app"])))
-}
 
