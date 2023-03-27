@@ -2,7 +2,7 @@ import { ActorSystem, ActorSystemConfigurationBuilder } from 'tarant'
 import { RemoteResolverMaterializer } from "tarant-sync-client"
 import { config } from "../AppConfig"
 import AppActor from "../domain"
-import { ReactRenderer } from './ReactRenderer'
+import { ReactRenderer } from 'tarant-react'
 
 const remote = new RemoteResolverMaterializer(config)
 

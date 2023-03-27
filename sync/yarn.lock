@@ -4073,6 +4073,15 @@ tarant-db-persist@0.3.101:
     tarant "3.1.37"
     waterline "0.15.2"
 
+tarant-react@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/tarant-react/-/tarant-react-0.2.2.tgz#ea21b0d620d6402f2681272c4c233a99cc8349cb"
+  integrity sha512-u/yRQTkgrf6mWnlKYClrpu4KBZn4+TkpUTS5UFkC1KkLEJBuiWFF/6os8TI+GZzkyXWlpgxawba/j1DqYnNDjA==
+  dependencies:
+    react "^18.2.0"
+    react-dom "^18.2.0"
+    tarant "3.1.37"
+
 tarant-sync-client@0.3.70:
   version "0.3.70"
   resolved "https://registry.yarnpkg.com/tarant-sync-client/-/tarant-sync-client-0.3.70.tgz#21747c5617d63870a1389dee84931c66b79ab0af"

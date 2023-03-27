@@ -13,7 +13,7 @@
     }
   },
   "scripts": {
-    "build:client": "parcel build --no-optimize --no-cache",
+    "build:client": "parcel build",
     "build:server": "tsc",
     "start": "node .",
     "start:dev": "nodemon ."
@@ -26,6 +26,7 @@
     "sails-disk": "2.1.2",
     "tarant": "3.1.38",
     "tarant-db-persist": "0.3.101",
+    "tarant-react": "^0.2.2",
     "tarant-sync-client": "0.3.70",
     "tarant-sync-router-express": "0.2.98"
   },
