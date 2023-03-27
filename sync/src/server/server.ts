@@ -1,5 +1,5 @@
 import express from 'express'
-import { ActorSystem, ActorSystemConfigurationBuilder, Actor } from 'tarant';
+import { ActorSystem, ActorSystemConfigurationBuilder } from 'tarant';
 import * as diskAdapter from 'sails-disk';
 import bodyParser from "body-parser";
 import SyncController from "tarant-sync-router-express";
