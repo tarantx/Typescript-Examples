@@ -1,7 +1,8 @@
-import { decorator } from '../../utils/decorator';
+import { Decorator } from "tarant-utils";
 import { AppActor } from '../AppActor';
 
-export class Serialization extends decorator<AppActor> {
+// @ts-ignore
+export class Serialization extends Decorator<AppActor> {
     constructor(actor: AppActor) {
         super(actor);
     }

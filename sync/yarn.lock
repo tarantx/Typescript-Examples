@@ -1371,9 +1371,9 @@
   integrity sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==
 
 "@types/node@*":
-  version "18.15.7"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.7.tgz#33514fca9bdf136f77027358850c0fb9cd93c669"
-  integrity sha512-LFmUbFunqmBn26wJZgZPYZPrDR1RwGOu2v79Mgcka1ndO6V0/cwjivPTc4yoK6n9kmw4/ls1r8cLrvh2iMibFA==
+  version "18.15.10"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.10.tgz#4ee2171c3306a185d1208dad5f44dae3dee4cfe3"
+  integrity sha512-9avDaQJczATcXgfmMAW3MIWArOO7A+m90vuCFLr8AotWf8igO/mRoYukrk2cqZVtv38tHs33retzHEilM7FpeQ==
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -1746,13 +1746,13 @@ buffer-from@^1.0.0:
   resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.2.tgz#2b146a6fd72e80b4f55d255f35ed59a3a9a41bd5"
   integrity sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==
 
-buffer@^5.5.0:
-  version "5.7.1"
-  resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.7.1.tgz#ba62e7c13133053582197160851a8f648e99eed0"
-  integrity sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==
+buffer@^6.0.3:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/buffer/-/buffer-6.0.3.tgz#2ace578459cc8fbe2a70aaa8f52ee63b6a74c6c6"
+  integrity sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==
   dependencies:
     base64-js "^1.3.1"
-    ieee754 "^1.1.13"
+    ieee754 "^1.2.1"
 
 builtin-modules@^1.1.1:
   version "1.1.1"
@@ -1788,9 +1788,9 @@ camelcase@^6.2.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001449:
-  version "1.0.30001469"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001469.tgz#3dd505430c8522fdc9f94b4a19518e330f5c945a"
-  integrity sha512-Rcp7221ScNqQPP3W+lVOYDyjdR6dC+neEQCttoNr5bAyz54AboB4iwpnWgyi8P4YUsPybVzT4LgWiBbI3drL4g==
+  version "1.0.30001470"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001470.tgz#09c8e87c711f75ff5d39804db2613dd593feeb10"
+  integrity sha512-065uNwY6QtHCBOExzbV6m236DDhYCCtPmQUCoQtwkVqzud8v5QPidoMr6CoMkC2nfp6nksjttqWQRRh75LqUmA==
 
 chalk@^2.0.0, chalk@^2.3.0:
   version "2.4.2"
@@ -2114,9 +2114,9 @@ ee-first@1.1.1:
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
 electron-to-chromium@^1.4.284:
-  version "1.4.339"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.339.tgz#bfa611a7707ca8bbb784e01fe247c18a35bd8d28"
-  integrity sha512-MSXHBJGcbBydq/DQDlpBeUKnJ6C7aTiNCTRpfDV5Iz0sNr/Ng6RJFloq82AAicp/SrmDq4zF6XsKG0B8Xwn1UQ==
+  version "1.4.341"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.341.tgz#ab31e9e57ef7758a14c7a7977a1978d599514470"
+  integrity sha512-R4A8VfUBQY9WmAhuqY5tjHRf5fH2AAf6vqitBOE0y6u2PgHgqHSrhZmu78dIX3fVZtjqlwJNX1i2zwC3VpHtQQ==
 
 emittery@^0.13.1:
   version "0.13.1"
@@ -2501,7 +2501,7 @@ iconv-lite@0.4.24:
   dependencies:
     safer-buffer ">= 2.1.2 < 3"
 
-ieee754@^1.1.13:
+ieee754@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.2.1.tgz#8eb7a10a63fff25d15a57b001586d177d1b0d352"
   integrity sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==
@@ -4064,13 +4064,13 @@ svgo@^2.4.0:
     picocolors "^1.0.0"
     stable "^0.1.8"
 
-tarant-db-persist@0.3.101:
-  version "0.3.101"
-  resolved "https://registry.yarnpkg.com/tarant-db-persist/-/tarant-db-persist-0.3.101.tgz#67ae4af500e437095d20f20788b5d58b10269277"
-  integrity sha512-bbXz2a609j0kD2NWUy2tSPUtoD1IZOTP7YUXXReFj6Q5YMulbFlMayHUDkxFxW6k8PbROJpl0EdUwlLTP00yTA==
+tarant-db-persist@0.3.102:
+  version "0.3.102"
+  resolved "https://registry.yarnpkg.com/tarant-db-persist/-/tarant-db-persist-0.3.102.tgz#1c07b2997c141efdacb57f4e612667a0fa589466"
+  integrity sha512-/QlMDMsh38/xtk6XmTEUUZ+Q0ixfgZcE28LEY4v2jVT1jQqQzavmUS+oJdc4/XYKcIs04X2KSuqMVN9XbcYWdg==
   dependencies:
     fast-deep-equal "^3.1.3"
-    tarant "3.1.37"
+    tarant "3.1.38"
     waterline "0.15.2"
 
 tarant-react@^0.2.2:
@@ -4082,23 +4082,30 @@ tarant-react@^0.2.2:
     react-dom "^18.2.0"
     tarant "3.1.37"
 
-tarant-sync-client@0.3.70:
-  version "0.3.70"
-  resolved "https://registry.yarnpkg.com/tarant-sync-client/-/tarant-sync-client-0.3.70.tgz#21747c5617d63870a1389dee84931c66b79ab0af"
-  integrity sha512-dxfMFZ+4xkPPWvPqTHsGbeJPqiZ/pyAGSRIXxFS8vuqXpJA1kSOhFpr52OMqJMXNjo59OsqS83oXtJ3yJYJEDg==
+tarant-sync-client@0.3.71:
+  version "0.3.71"
+  resolved "https://registry.yarnpkg.com/tarant-sync-client/-/tarant-sync-client-0.3.71.tgz#c86832271903fd28e8f903b56a4c5c0f032d9ada"
+  integrity sha512-jHOLd4sTa+j/7kCYFOe1emYQOH+lgaIW5pXyR++4g4IpDdv4x1ErvVbpyNEKxLEHA39UVqwSxx7Bo+0nOvsCqg==
   dependencies:
     axios "1.3.4"
-    tarant "3.1.37"
+    tarant "3.1.38"
 
-tarant-sync-router-express@0.2.98:
-  version "0.2.98"
-  resolved "https://registry.yarnpkg.com/tarant-sync-router-express/-/tarant-sync-router-express-0.2.98.tgz#50f56b07ff49c169f4e56b525103e39cbc08010c"
-  integrity sha512-ObDhoCJBsH/xKYthKCTBv9ckQ8ZtdxiBzyx73vTb+bPGtdejbTkrTnd5aT9Mkx1K2m57a9CLrzcdiplbjvRixA==
+tarant-sync-router-express@0.2.99:
+  version "0.2.99"
+  resolved "https://registry.yarnpkg.com/tarant-sync-router-express/-/tarant-sync-router-express-0.2.99.tgz#040c4cb9646d47d1b8b2b36d2105e860522d5974"
+  integrity sha512-J2awRc8X1hfQpi4DstPGb9E9C0AXS6vycceiusjKzq6NVE47dsekORsUd7Gl4SvzuA5h1Y9W1GechiRBSHfnww==
   dependencies:
     "@types/supertest" "^2.0.12"
     express "4.18.2"
-    tarant "3.1.37"
+    tarant "3.1.38"
     tslib "2.5.0"
+
+tarant-utils@^0.3.103:
+  version "0.3.103"
+  resolved "https://registry.yarnpkg.com/tarant-utils/-/tarant-utils-0.3.103.tgz#236ddcae1895b2dd6a0b0b413c8d58f3ef78a8f1"
+  integrity sha512-IhBw6mhYCBsVo37TlW2bP8DV6nX/W/mgk+Mjht4lhyNvv3ctK9HEbYfyqa5cLP4kmPr6ar3wSYg4kFow8Zo9hQ==
+  dependencies:
+    tarant "3.1.38"
 
 tarant@3.1.37:
   version "3.1.37"
@@ -4111,6 +4118,13 @@ tarant@3.1.38:
   version "3.1.38"
   resolved "https://registry.yarnpkg.com/tarant/-/tarant-3.1.38.tgz#ee04e6cef5285795bae60e7e6d7365801dea3030"
   integrity sha512-bvwX9U61j5doJSwBoZ+zCI6j+EEy5j04htE8LPH+IRCT4lwVNuOzKU9haonnzmFAbbqwDP54XUU+hgAw9Yyzog==
+  dependencies:
+    tslib "2.5.0"
+
+tarant@3.1.39:
+  version "3.1.39"
+  resolved "https://registry.yarnpkg.com/tarant/-/tarant-3.1.39.tgz#399fff7d6cf66a9135559fdbaeee0cea6ab9aab0"
+  integrity sha512-o/uM2Rj9Qpfkna5zDHLWz+2d7HqRzVYWvPzEh46n31jIe2uAK3QXYxq1gYpWf10ElKw18g/AtxAIowxOcwnEQw==
   dependencies:
     tslib "2.5.0"
 

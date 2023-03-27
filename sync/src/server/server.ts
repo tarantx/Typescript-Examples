@@ -5,7 +5,7 @@ import bodyParser from "body-parser";
 import SyncController from "tarant-sync-router-express";
 import { PersistResolverMaterializer } from "tarant-db-persist";
 import { config } from "../AppConfig"
-import AppActor from '../domain/AppActor';
+import AppActor from '../domain';
 
 var dbConfig = {
     adapters: {

@@ -1,8 +1,9 @@
 import React from "react";
-import { decorator } from "../../utils/decorator"
+import { Decorator } from "tarant-utils"
 import { AppActor } from "../AppActor"
 
-export class ReactDecorator extends decorator<AppActor> {
+// @ts-ignore
+export class ReactDecorator extends Decorator<AppActor> {
     constructor(actor: AppActor) {
         super(actor)
     }

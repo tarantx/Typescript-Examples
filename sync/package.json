@@ -24,11 +24,12 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sails-disk": "2.1.2",
-    "tarant": "3.1.38",
-    "tarant-db-persist": "0.3.101",
+    "tarant": "3.1.39",
+    "tarant-db-persist": "0.3.102",
     "tarant-react": "^0.2.2",
-    "tarant-sync-client": "0.3.70",
-    "tarant-sync-router-express": "0.2.98"
+    "tarant-sync-client": "0.3.71",
+    "tarant-sync-router-express": "0.2.99",
+    "tarant-utils": "^0.3.103"
   },
   "devDependencies": {
     "@types/express": "4.17.17",
@@ -36,7 +37,7 @@
     "@types/jest": "29.5.0",
     "@types/react": "^18.0.29",
     "@types/react-dom": "^18.0.11",
-    "buffer": "^5.5.0",
+    "buffer": "^6.0.3",
     "faker": "6.6.6",
     "jest": "29.5.0",
     "nodemon": "2.0.22",
