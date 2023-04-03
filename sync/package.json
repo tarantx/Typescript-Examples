@@ -26,9 +26,9 @@
     "sails-disk": "2.1.2",
     "tarant": "3.1.40",
     "tarant-db-persist": "0.3.108",
-    "tarant-local-storage": "^2.0.0",
+    "tarant-local-storage": "2.0.1",
     "tarant-react": "0.2.11",
-    "tarant-sync-client": "1.0.2",
+    "tarant-sync-client": "1.0.3",
     "tarant-sync-router-express": "1.0.0",
     "tarant-utils": "1.0.10"
   },
